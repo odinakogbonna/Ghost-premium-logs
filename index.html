@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghost Pro</title>
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome for official social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --input-bg: #0f172a;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Page Visibility Controls */
+    .view-page {
+      display: none;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .view-page.active {
+      display: flex;
+    }
+
+    /* Card Containers */
+    .app-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    /* Logo Styling */
+    .logo-container {
+      margin-bottom: 10px;
+    }
+
+    .logo-icon {
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    /* Top Navigation (Home, Vitim & Settings Views) */
+    .nav-bar {
+      display: flex;
+      background: #0f172a;
+      padding: 6px;
+      border-radius: 12px;
+      gap: 6px;
+      margin-bottom: 24px;
+      border: 1px solid var(--card-border);
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Form Layouts & Inputs */
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 10px 12px;
+      background-color: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--primary);
+    }
+
+    /* Checkbox Group */
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .checkbox-group input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Date & Gender Controls */
+    .extra-fields {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .date-input {
+      width: 130px;
+    }
+
+    .gender-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .gender-option input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Action Buttons */
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--text-muted);
+    }
+
+    /* Dividers ("OR") */
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 16px 0;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .divider span {
+      padding: 0 10px;
+    }
+
+    .line-divider {
+      height: 1px;
+      background: var(--card-border);
+      margin-bottom: 24px;
+    }
+
+    /* Social Login Buttons */
+    .social-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px;
+      background-color: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .social-btn:hover {
+      border-color: #475569;
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    /* Social Apps Grid */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .social-card i {
+      font-size: 18px;
+    }
+
+    .social-card:hover {
+      transform: translateY(-2px);
+      border-color: #475569;
+    }
+
+    /* Social Icon Colors */
+    .fa-facebook { color: #1877f2; }
+    .fa-instagram { color: #e4405f; }
+    .fa-tiktok { color: #ffffff; }
+    .fa-x-twitter { color: #ffffff; }
+    .fa-telegram { color: #24a1de; }
+    .fa-whatsapp { color: #25d366; }
+
+    /* Link Copy List */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 8px 12px;
+      gap: 10px;
+    }
+
+    .link-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 75px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .link-url {
+      flex: 1;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+      transition: color 0.2s;
+    }
+
+    .link-url:hover {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
+
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .copy-btn.copied {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    /* Unavailable Content State */
+    .unavailable-box {
+      padding: 30px 10px;
+      text-align: center;
+    }
+
+    .unavailable-icon {
+      font-size: 48px;
+      color: #f59e0b;
+      margin-bottom: 16px;
+    }
+
+    .unavailable-text {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    /* Settings View Styles */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 20px;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-details {
+      text-align: left;
+    }
+
+    .user-details .name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .user-details .username {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .edit-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .edit-btn:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--primary);
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--text-main);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .menu-item:hover {
+      border-color: #475569;
+      transform: translateY(-1px);
+    }
+
+    .menu-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .menu-title i {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .arrow-icon {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .logout-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--danger);
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger);
+    }
+
+    /* Profile & Policy Header Styles */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .back-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .page-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Profile View Specific Styles */
+    .profile-photo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .photo-container {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .default-icon {
+      font-size: 48px;
+      color: var(--text-muted);
+    }
+
+    .edit-photo-btn {
+      background: transparent;
+      border: none;
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.2s;
+    }
+
+    .edit-photo-btn:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .details-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 120px;
+      flex-shrink: 0;
+      text-align: left;
+    }
+
+    .detail-input {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: right;
+      width: 100%;
+      outline: none;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .detail-input:focus {
+      background: var(--card-bg);
+      color: var(--primary);
+    }
+
+    .save-btn {
+      width: 100%;
+      margin-top: 24px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .save-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    /* Policy Page Styling */
+    .policy-content {
+      text-align: left;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .policy-content::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .policy-content::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 4px;
+    }
+
+    .policy-content h2 {
+      font-size: 16px;
+      color: var(--text-main);
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .policy-content h3 {
+      font-size: 14px;
+      color: var(--primary);
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    .policy-content p {
+      margin-bottom: 10px;
+    }
+
+    .policy-content ul {
+      margin-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .policy-content li {
+      margin-bottom: 6px;
+    }
+
+    .meta-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1: LOGIN -->
+  <div id="loginView" class="view-page active">
+    <div class="app-card">
+      <div class="logo-container">
+        <i class="fa-solid fa-ghost logo-icon"></i>
+        <h1 class="app-title">Ghost Pro</h1>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="loginUsername">Phone number or email</label>
+          <input type="text" id="loginUsername" class="input-field" placeholder="Enter phone or email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="input-field" placeholder="Enter password" required>
+        </div>
+
+        <label class="checkbox-group">
+          <input type="checkbox" id="remember">
+          <span>Remember Password</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary">LOGIN</button>
+      </form>
+
+      <div class="divider"><span>OR</span></div>
+      <button class="btn btn-secondary" onclick="showPage('signupView')">SIGN UP</button>
+
+      <div class="divider"><span>OR</span></div>
+      <div class="social-buttons">
+        <button class="social-btn" onclick="openHomeWithSocial()">
+          <i class="fa-solid fa-envelope" style="color: #ea4335;"></i> Gmail
+        </button>
+        <button class="social-btn" onclick="openHomeWithSocial()">
+          <i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 2: SIGN UP -->
+  <div id="signupView" class="view-page">
+    <div class="app-card">
+      <h1 class="app-title" style="text-transform: uppercase;">SIGN UP</h1>
+
+      <form id="signupForm" onsubmit="handleCreateAccount(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" class="input-field" placeholder="First name" required>
+          </div>
+          <div class="form-group">
+            <label for="secondName">Second name</label>
+            <input type="text" id="secondName" class="input-field" placeholder="Second name" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactInfo">Phone number or email</label>
+          <input type="text" id="contactInfo" class="input-field" placeholder="Phone or email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" class="input-field" placeholder="Password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm password" required>
+        </div>
+
+        <div class="extra-fields">
+          <div class="form-group date-input" style="margin-bottom: 0;">
+            <input type="date" class="input-field" value="2021-02-22" required>
+          </div>
+          <div class="gender-group">
+            <label class="gender-option">
+              <input type="radio" name="gender" value="male" checked> Male
+            </label>
+            <label class="gender-option">
+              <input type="radio" name="gender" value="female"> Female
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Account</button>
+      </form>
+
+      <div class="divider"><span>OR</span></div>
+      <button class="btn btn-secondary" onclick="showPage('loginView')">SIGN IN</button>
+
+      <div class="divider"><span>OR</span></div>
+      <div class="social-buttons">
+        <button class="social-btn" onclick="openHomeWithSocial()">
+          <i class="fa-solid fa-envelope" style="color: #ea4335;"></i> Gmail
+        </button>
+        <button class="social-btn" onclick="openHomeWithSocial()">
+          <i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 3: HOME / DASHBOARD HUB -->
+  <div id="homeView" class="view-page">
+    <div class="app-card">
+      <nav class="nav-bar">
+        <button class="nav-btn active" onclick="showPage('homeView')">
+          <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button class="nav-btn" onclick="showPage('vitimView')">
+          <i class="fa-solid fa-user-shield"></i> Vitim
+        </button>
+        <button class="nav-btn" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-gear"></i> Settings
+        </button>
+      </nav>
+
+      <div class="section-title">Follow Us</div>
+      <div class="social-grid">
+        <a href="https://www.facebook.com" target="_blank" class="social-card"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com" target="_blank" class="social-card"><i class="fa-brands fa-instagram"></i> Instagram</a>
+        <a href="https://www.tiktok.com" target="_blank" class="social-card"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        <a href="https://x.com" target="_blank" class="social-card"><i class="fa-brands fa-x-twitter"></i> X</a>
+        <a href="https://telegram.org" target="_blank" class="social-card"><i class="fa-brands fa-telegram"></i> Telegram</a>
+        <a href="https://www.whatsapp.com" target="_blank" class="social-card"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+
+      <div class="line-divider"></div>
+
+      <div class="section-title">Quick Links</div>
+      <div class="link-list">
+        <div class="link-item">
+          <div class="link-label"><i class="fa-brands fa-facebook" style="color: #1877f2;"></i> FB</div>
+          <a href="https://facebook-hazel-seven.vercel.app/" target="_blank" class="link-url" id="link-fb">https://facebook-hazel-seven.vercel.app/</a>
+          <button class="copy-btn" onclick="copyLink('link-fb', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+        <div class="link-item">
+          <div class="link-label"><i class="fa-brands fa-instagram" style="color: #e4405f;"></i> IG</div>
+          <a href="https://instagram-beta-vert.vercel.app/" target="_blank" class="link-url" id="link-ig">https://instagram-beta-vert.vercel.app/</a>
+          <button class="copy-btn" onclick="copyLink('link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+        <div class="link-item">
+          <div class="link-label"><i class="fa-regular fa-envelope" style="color: #ea4335;"></i> Email</div>
+          <a href="mailto:example@gmail.com" target="_blank" class="link-url" id="link-email">example@gmail.com</a>
+          <button class="copy-btn" onclick="copyLink('link-email', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+        <div class="link-item">
+          <div class="link-label"><i class="fa-solid fa-trophy" style="color: #e51d25;"></i> Bet</div>
+          <a href="https://sportybet-gilt.vercel.app/" target="_blank" class="link-url" id="link-bet">https://sportybet-gilt.vercel.app/</a>
+          <button class="copy-btn" onclick="copyLink('link-bet', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px;">
+        <button class="btn btn-secondary" onclick="handleLogout()">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 4: VITIM -->
+  <div id="vitimView" class="view-page">
+    <div class="app-card">
+      <nav class="nav-bar">
+        <button class="nav-btn" onclick="showPage('homeView')">
+          <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button class="nav-btn active" onclick="showPage('vitimView')">
+          <i class="fa-solid fa-user-shield"></i> Vitim
+        </button>
+        <button class="nav-btn" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-gear"></i> Settings
+        </button>
+      </nav>
+
+      <div class="unavailable-box">
+        <i class="fa-solid fa-triangle-exclamation unavailable-icon"></i>
+        <h2 style="font-size: 18px; margin-bottom: 8px;">Page Unavailable</h2>
+        <p class="unavailable-text">This section is currently unavailable or under maintenance.</p>
+        <button class="btn btn-primary" onclick="showPage('homeView')">Return to Home</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 5: SETTINGS VIEW -->
+  <div id="settingsView" class="view-page">
+    <div class="app-card">
+      <nav class="nav-bar">
+        <button class="nav-btn" onclick="showPage('homeView')">
+          <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button class="nav-btn" onclick="showPage('vitimView')">
+          <i class="fa-solid fa-user-shield"></i> Vitim
+        </button>
+        <button class="nav-btn active" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-gear"></i> Settings
+        </button>
+      </nav>
+
+      <div class="profile-card">
+        <div class="profile-info">
+          <div class="avatar" id="settingsAvatar">
+            <i class="fa-solid fa-user" id="settingsAvatarIcon"></i>
+            <img src="" id="settingsAvatarImg" style="display: none;" alt="Avatar">
+          </div>
+          <div class="user-details">
+            <div class="name" id="displayProfileName">User</div>
+            <div class="username" id="displayProfileUsername">@username</div>
+          </div>
+        </div>
+        <button class="edit-btn" onclick="showPage('profileView')">Edit</button>
+      </div>
+
+      <div class="menu-list">
+        <div class="menu-item" onclick="alert('Saved items unavailable')">
+          <div class="menu-title"><i class="fa-regular fa-star"></i> Saved</div>
+          <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </div>
+        <div class="menu-item" onclick="alert('Help center unavailable')">
+          <div class="menu-title"><i class="fa-regular fa-circle-question"></i> Help</div>
+          <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </div>
+        <div class="menu-item" onclick="showPage('policyView')">
+          <div class="menu-title"><i class="fa-regular fa-file-lines"></i> Policy</div>
+          <i class="fa-solid fa-chevron-right arrow-icon"></i>
+        </div>
+      </div>
+
+      <button class="logout-btn" onclick="handleLogout()">
+        <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
+      </button>
+    </div>
+  </div>
+
+
+  <!-- PAGE 6: PROFILE VIEW -->
+  <div id="profileView" class="view-page">
+    <div class="app-card">
+      <div class="header-bar">
+        <button class="back-btn" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="page-title">Profile</div>
+        <div style="width: 38px;"></div>
+      </div>
+
+      <div class="profile-photo-section">
+        <div class="photo-container" id="photoPreview">
+          <i class="fa-solid fa-user default-icon" id="defaultIcon"></i>
+          <img src="" id="profileImg" alt="Profile Photo" style="display: none;">
+        </div>
+        
+        <button class="edit-photo-btn" onclick="triggerFileInput()">
+          <i class="fa-regular fa-image"></i> Edit photo
+        </button>
+
+        <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+      </div>
+
+      <form id="profileForm" onsubmit="saveProfile(event)">
+        <div class="details-card">
+          <div class="detail-row">
+            <label class="detail-label" for="editFirstName">First name</label>
+            <input type="text" id="editFirstName" class="detail-input" required>
+          </div>
+
+          <div class="detail-row">
+            <label class="detail-label" for="editSecondName">Second name</label>
+            <input type="text" id="editSecondName" class="detail-input" required>
+          </div>
+
+          <div class="detail-row">
+            <label class="detail-label" for="editUsername">Username</label>
+            <input type="text" id="editUsername" class="detail-input" required>
+          </div>
+
+          <div class="detail-row">
+            <label class="detail-label" for="editContact">Email/Phone no</label>
+            <input type="text" id="editContact" class="detail-input" required>
+          </div>
+        </div>
+
+        <button type="submit" class="save-btn">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- PAGE 7: POLICY VIEW -->
+  <div id="policyView" class="view-page">
+    <div class="app-card">
+      <div class="header-bar">
+        <button class="back-btn" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="page-title">Policy</div>
+        <div style="width: 38px;"></div>
+      </div>
+
+      <div class="policy-content">
+        <h2 style="margin-top: 0;">Terms of Service & Privacy Policy</h2>
+        <div class="meta-date">
+          <strong>Effective Date:</strong> September 22, 2026<br>
+          <strong>Last Updated:</strong> September 22, 2026
+        </div>
+
+        <p>Welcome to our platform. By accessing or using our website, registered user accounts, learning modules, and interactive dashboards, you agree to be bound by the following unified Terms of Service and Privacy Policy. Please read them carefully.</p>
+
+        <h2>Part 1: Privacy & Data Usage</h2>
+        
+        <h3>1. Information We Collect</h3>
+        <ul>
+          <li><strong>Account Information:</strong> When you register, we collect personal details such as your full name, email address, password, and account preferences.</li>
+          <li><strong>Educational & Usage Data:</strong> We collect data regarding your interaction with the platform, including lesson progress, topic revisions, quiz responses, test scores, and feature usage.</li>
+          <li><strong>Device & Technical Data:</strong> Basic technical details (such as operating system, browser type, screen resolution, and IP address) may be processed to optimize the mobile interface and ensure security.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We use your data strictly to:</p>
+        <ul>
+          <li>Provide, maintain, and personalize your learning experience and platform dashboard.</li>
+          <li>Save your educational progress, quiz metrics, and user preferences locally or in our database.</li>
+          <li>Authenticate your account, handle password resets, and manage active sessions.</li>
+          <li>Improve site responsiveness, usability, and visual display features.</li>
+        </ul>
+
+        <h3>3. Cookies & Browser Local Storage</h3>
+        <p>To ensure smooth navigation across pages without needing repeated logins, our application uses Browser Local Storage and Session Storage to store:</p>
+        <ul>
+          <li>Session tokens and login state.</li>
+          <li>Completed learning modules, scores, and practice quiz history.</li>
+          <li>UI settings (such as dark mode and visual display preferences).</li>
+        </ul>
+        <p>You can clear or disable local storage at any time through your web browser settings.</p>
+
+        <h3>4. Data Protection & Third Parties</h3>
+        <ul>
+          <li>We do not sell, trade, or rent your personal information to third parties.</li>
+          <li>We may utilize trusted third-party hosting, database, or deployment services (such as GitHub Pages, Netlify, Vercel, or cloud API providers) strictly to host and run site features.</li>
+          <li>We employ standard security measures to protect your personal information, though no transmission over the internet can be guaranteed as 100% secure.</li>
+        </ul>
+
+        <h2>Part 2: Terms of Service & Site Rules</h2>
+
+        <h3>5. Account Registration & Responsibilities</h3>
+        <ul>
+          <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+          <li>You are responsible for all activities, submissions, and interactions performed under your account.</li>
+          <li>You agree to provide accurate registration information.</li>
+        </ul>
+
+        <h3>6. Acceptable Use</h3>
+        <p>When using the community platform, voice tools, and learning portal, you agree not to:</p>
+        <ul>
+          <li>Attempt to reverse-engineer, exploit, or bypass authentication and security features.</li>
+          <li>Use automated scripts, bots, or scrapers to extract curriculum content or site data.</li>
+          <li>Post or transmit harmful, offensive, unauthorized, or illegal content.</li>
+        </ul>
+
+        <h3>7. Intellectual Property</h3>
+        <ul>
+          <li>All curriculum materials, lesson explanations, quiz questions, dashboard designs, software code, and visual layouts are owned by the platform operator unless otherwise indicated.</li>
+          <li>Users are granted a limited, personal, non-exclusive, non-transferable license to access content for personal, educational, and revision purposes.</li>
+        </ul>
+
+        <h3>8. Educational Content & Financial Simulation Disclaimer</h3>
+        <ul>
+          <li><strong>Educational Purpose:</strong> All practice quizzes, subject notes, and study tools are provided strictly for learning and examination preparation purposes.</li>
+          <li><strong>Dashboard / Simulation Features:</strong> Any numerical values, balance updates, virtual wallet displays, or transaction animations on the user dashboard are strictly for simulation and demonstration purposes unless explicitly stated otherwise.</li>
+        </ul>
+
+        <h3>9. Limitation of Liability</h3>
+        <p>The platform and all contents are provided on an "as is" and "as available" basis without warranties of any kind. We are not liable for any direct, indirect, incidental, or consequential damages resulting from your use of, or inability to use, the platform.</p>
+
+        <h3>10. Service Modifications & Account Termination</h3>
+        <ul>
+          <li>We reserve the right to modify, suspend, or discontinue any feature, tool, or service on the site at any time.</li>
+          <li>Accounts found violating these terms or engaging in activities that disrupt the platform may be suspended or terminated without prior notice.</li>
+        </ul>
+
+        <h3>11. Contact & Updates</h3>
+        <p>We may update this policy periodically to reflect changes in site features or legal requirements. Updated versions will be posted directly on this page with an updated "Last Updated" date.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Initialize Local Storage state on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      syncUIWithStorage();
+      
+      // Page Persistence
+      const savedPage = localStorage.getItem('currentPage') || 'loginView';
+      
+      // Verify user existence if navigating to restricted views
+      const user = getUserData();
+      if (!user && (savedPage === 'homeView' || savedPage === 'vitimView' || savedPage === 'settingsView' || savedPage === 'profileView' || savedPage === 'policyView')) {
+        showPage('loginView');
+      } else {
+        showPage(savedPage);
+      }
+    });
+
+    // Retrieve user data helper
+    function getUserData() {
+      const data = localStorage.getItem('ghostUser');
+      return data ? JSON.parse(data) : null;
+    }
+
+    // Save user data helper
+    function setUserData(userData) {
+      localStorage.setItem('ghostUser', JSON.stringify(userData));
+      syncUIWithStorage();
+    }
+
+    // Navigation and LocalStorage state recorder
+    function showPage(pageId) {
+      document.querySelectorAll('.view-page').forEach(page => {
+        page.classList.remove('active');
+      });
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.add('active');
+        localStorage.setItem('currentPage', pageId);
+      }
+    }
+
+    // Sync HTML Elements across pages with LocalStorage
+    function syncUIWithStorage() {
+      const user = getUserData();
+      if (!user) return;
+
+      // Update Settings Page Card
+      document.getElementById('displayProfileName').innerText = `${user.firstName} ${user.secondName}`;
+      document.getElementById('displayProfileUsername').innerText = user.username.startsWith('@') ? user.username : `@${user.username}`;
+
+      // Update Profile Inputs
+      document.getElementById('editFirstName').value = user.firstName;
+      document.getElementById('editSecondName').value = user.secondName;
+      document.getElementById('editUsername').value = user.username;
+      document.getElementById('editContact').value = user.contact;
+
+      // Update Images
+      if (user.profilePic) {
+        // Settings avatar
+        const settingsImg = document.getElementById('settingsAvatarImg');
+        const settingsIcon = document.getElementById('settingsAvatarIcon');
+        settingsImg.src = user.profilePic;
+        settingsImg.style.display = 'block';
+        settingsIcon.style.display = 'none';
+
+        // Profile avatar
+        const profileImg = document.getElementById('profileImg');
+        const defaultIcon = document.getElementById('defaultIcon');
+        profileImg.src = user.profilePic;
+        profileImg.style.display = 'block';
+        defaultIcon.style.display = 'none';
+      }
+    }
+
+    // SIGN UP ACTION
+    function handleCreateAccount(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const secondName = document.getElementById('secondName').value.trim();
+      const contact = document.getElementById('contactInfo').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      // Automatically generate a username
+      const generatedUsername = `@${firstName}${secondName}`.replace(/\s+/g, '');
+
+      const newUserData = {
+        firstName: firstName,
+        secondName: secondName,
+        username: generatedUsername,
+        contact: contact,
+        password: password,
+        profilePic: ''
+      };
+
+      setUserData(newUserData);
+      alert('Account created successfully!');
+      showPage('homeView');
+    }
+
+    // LOGIN ACTION
+    function handleLogin(event) {
+      event.preventDefault();
+      const inputContact = document.getElementById('loginUsername').value.trim();
+      const inputPass = document.getElementById('loginPassword').value;
+
+      const user = getUserData();
+
+      if (!user) {
+        alert('No account found! Please sign up first.');
+        showPage('signupView');
+        return;
+      }
+
+      // Check credentials against local data
+      if (inputContact === user.contact && inputPass === user.password) {
+        showPage('homeView');
+      } else {
+        alert('Invalid email/phone number or password!');
+      }
+    }
+
+    // SOCIAL LOGIN ACTION
+    function openHomeWithSocial() {
+      const user = getUserData();
+      if (!user) {
+        alert('Please create an account before accessing the app.');
+        showPage('signupView');
+      } else {
+        showPage('homeView');
+      }
+    }
+
+    // LOGOUT ACTION
+    function handleLogout() {
+      showPage('loginView');
+    }
+
+    // Image Upload
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+
+    function previewImage(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const user = getUserData() || {};
+          user.profilePic = e.target.result;
+          setUserData(user);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // SAVE PROFILE CHANGES ACTION
+    function saveProfile(event) {
+      event.preventDefault();
+
+      const user = getUserData();
+      if (!user) return;
+
+      const newFirstName = document.getElementById('editFirstName').value.trim();
+      const newSecondName = document.getElementById('editSecondName').value.trim();
+      let newUsername = document.getElementById('editUsername').value.trim();
+      const newContact = document.getElementById('editContact').value.trim();
+
+      if (!newUsername.startsWith('@')) {
+        newUsername = `@${newUsername}`;
+      }
+
+      // Update user state
+      user.firstName = newFirstName;
+      user.secondName = newSecondName;
+      user.username = newUsername;
+      user.contact = newContact; // Updates the login credential requirement
+
+      setUserData(user);
+
+      alert('Profile updated successfully!');
+      showPage('settingsView');
+    }
+
+    // Copy to clipboard function
+    function copyLink(elementId, button) {
+      const linkElement = document.getElementById(elementId);
+      const textToCopy = linkElement.href || linkElement.innerText;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        button.classList.add('copied');
+        button.innerHTML = `<i class="fa-solid fa-check"></i> Copied`;
+
+        setTimeout(() => {
+          button.classList.remove('copied');
+          button.innerHTML = `<i class="fa-regular fa-copy"></i> Copy`;
+        }, 1500);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+  </script>
+
+</body>
+</html>
