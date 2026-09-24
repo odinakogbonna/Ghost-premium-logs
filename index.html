@@ -420,6 +420,17 @@
       color: #ffffff;
     }
 
+    /* Footer Watermark Style */
+    .app-footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--card-border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
     /* Unavailable Content State */
     .unavailable-box {
       padding: 30px 10px;
@@ -940,6 +951,11 @@
           <button class="copy-btn" onclick="copyLink('link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
         <div class="link-item">
+          <div class="link-label"><i class="fa-brands fa-tiktok" style="color: #ffffff;"></i> TikTok</div>
+          <a href="https://tiktok-ashy-zeta.vercel.app/" target="_blank" class="link-url" id="link-tiktok">https://tiktok-ashy-zeta.vercel.app/</a>
+          <button class="copy-btn" onclick="copyLink('link-tiktok', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+        <div class="link-item">
           <div class="link-label"><i class="fa-regular fa-envelope" style="color: #ea4335;"></i> Email</div>
           <a href="mailto:example@gmail.com" target="_blank" class="link-url" id="link-email">example@gmail.com</a>
           <button class="copy-btn" onclick="copyLink('link-email', this)"><i class="fa-regular fa-copy"></i> Copy</button>
@@ -951,9 +967,7 @@
         </div>
       </div>
 
-      <div style="margin-top: 24px;">
-        <button class="btn btn-secondary" onclick="handleLogout()">Log Out</button>
-      </div>
+      <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
@@ -979,6 +993,8 @@
         <p class="unavailable-text">This section is currently unavailable or under maintenance.</p>
         <button class="btn btn-primary" onclick="showPage('homeView')">Return to Home</button>
       </div>
+
+      <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
@@ -1030,6 +1046,8 @@
       <button class="logout-btn" onclick="handleLogout()">
         <i class="fa-solid fa-right-from-bracket"></i> LOGOUT
       </button>
+
+      <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
@@ -1083,6 +1101,8 @@
 
         <button type="submit" class="save-btn">Save Changes</button>
       </form>
+
+      <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
@@ -1182,6 +1202,8 @@
         <h3>11. Contact & Updates</h3>
         <p>We may update this policy periodically to reflect changes in site features or legal requirements. Updated versions will be posted directly on this page with an updated "Last Updated" date.</p>
       </div>
+
+      <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
