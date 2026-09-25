@@ -5,30 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ghost Pro</title>
   <!-- Google Fonts for modern typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- FontAwesome for official social icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tesseract.js OCR Engine for Payment Verification -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 
   <style>
     :root {
       --bg-dark: #0f172a;
       --card-bg: #1e293b;
       --card-border: #334155;
+      --card-hover-border: #6366f1;
       --primary: #3b82f6;
       --primary-hover: #2563eb;
+      --accent-color: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --text-sub: #94a3b8;
       --success: #10b981;
+      --green-online: #10b981;
       --input-bg: #0f172a;
       --danger: #ef4444;
       --danger-hover: #dc2626;
+      --gold: #fbbf24;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -39,6 +48,7 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      position: relative;
     }
 
     /* Page Visibility Controls */
@@ -63,6 +73,7 @@
       padding: 28px 24px;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
       text-align: center;
+      position: relative;
     }
 
     /* Logo Styling */
@@ -84,25 +95,25 @@
       color: var(--text-main);
     }
 
-    /* Top Navigation (Home, Vitim & Settings Views) */
+    /* Top Navigation */
     .nav-bar {
       display: flex;
       background: #0f172a;
       padding: 6px;
       border-radius: 12px;
-      gap: 6px;
+      gap: 4px;
       margin-bottom: 24px;
       border: 1px solid var(--card-border);
     }
 
     .nav-btn {
       flex: 1;
-      padding: 10px;
+      padding: 10px 4px;
       border: none;
       background: transparent;
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 13px;
+      font-size: 12px;
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -111,7 +122,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     .nav-btn:hover {
@@ -242,7 +253,7 @@
       border-color: var(--text-muted);
     }
 
-    /* Dividers ("OR") */
+    /* Dividers */
     .divider {
       display: flex;
       align-items: center;
@@ -268,34 +279,6 @@
       height: 1px;
       background: var(--card-border);
       margin-bottom: 24px;
-    }
-
-    /* Social Login Buttons */
-    .social-buttons {
-      display: flex;
-      gap: 12px;
-    }
-
-    .social-btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px;
-      background-color: var(--input-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      color: var(--text-main);
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .social-btn:hover {
-      border-color: #475569;
-      background-color: rgba(255, 255, 255, 0.02);
     }
 
     /* Section Headers */
@@ -341,7 +324,6 @@
       border-color: #475569;
     }
 
-    /* Social Icon Colors */
     .fa-facebook { color: #1877f2; }
     .fa-instagram { color: #e4405f; }
     .fa-tiktok { color: #ffffff; }
@@ -420,7 +402,6 @@
       color: #ffffff;
     }
 
-    /* Footer Watermark Style */
     .app-footer {
       margin-top: 24px;
       padding-top: 16px;
@@ -431,26 +412,8 @@
       letter-spacing: 0.05em;
     }
 
-    /* Unavailable Content State */
-    .unavailable-box {
-      padding: 30px 10px;
-      text-align: center;
-    }
-
-    .unavailable-icon {
-      font-size: 48px;
-      color: #f59e0b;
-      margin-bottom: 16px;
-    }
-
-    .unavailable-text {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-
     /* Settings View Styles */
-    .profile-card {
+    .profile-card-settings {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -461,7 +424,7 @@
       margin-bottom: 20px;
     }
 
-    .profile-info {
+    .profile-info-settings {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -587,7 +550,7 @@
       border-color: var(--danger);
     }
 
-    /* Profile & Policy Header Styles */
+    /* Profile & Policy Header */
     .header-bar {
       display: flex;
       align-items: center;
@@ -678,7 +641,7 @@
       text-decoration: underline;
     }
 
-    #fileInput {
+    #fileInputProfile {
       display: none;
     }
 
@@ -799,6 +762,511 @@
       color: var(--text-muted);
       margin-bottom: 14px;
     }
+
+    /* ================= INVITE VIEW STYLES ================= */
+    .profile-card-invite {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .profile-avatar-invite {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .profile-avatar-invite img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info-invite {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name-invite {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .status-online {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .dot-online {
+      width: 8px;
+      height: 8px;
+      background: var(--green-online);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green-online);
+    }
+
+    .link-share-box {
+      display: flex;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 6px 6px 6px 14px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .invite-url-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .btn-share {
+      background: var(--accent-color);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .btn-share:hover { background: #4f46e5; }
+    .btn-share:active { transform: scale(0.95); }
+
+    .rewards-list {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 8px 16px;
+      margin-bottom: 24px;
+    }
+
+    .reward-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .reward-item:last-child { border-bottom: none; }
+    .reward-target { font-weight: 600; color: var(--text-main); }
+    .reward-arrow { color: var(--text-sub); font-size: 0.8rem; }
+
+    .reward-badge {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .invited-users-box {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 12px 16px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .invited-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .invited-item:last-child { border-bottom: none; }
+    .user-name { font-size: 0.92rem; font-weight: 600; }
+    .time-ago { font-size: 0.8rem; color: var(--text-sub); }
+
+    /* ================= PREMIUM VIEW STYLES ================= */
+    .features-card {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .features-list li i {
+      color: #38bdf8;
+      font-size: 0.9rem;
+      background: rgba(56, 189, 248, 0.15);
+      padding: 5px;
+      border-radius: 50%;
+    }
+
+    .plans-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .plan-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+    }
+
+    .plan-card:hover {
+      border-color: var(--card-hover-border);
+      background: rgba(99, 102, 241, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -5px var(--accent-glow);
+    }
+
+    .plan-card:active { transform: scale(0.98); }
+
+    .plan-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .plan-duration-sub {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .plan-badge-btn {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+
+    .plan-card:hover .plan-badge-btn { background: #4f46e5; }
+
+    .plan-card.popular {
+      border-color: rgba(251, 191, 36, 0.5);
+      background: rgba(251, 191, 36, 0.05);
+    }
+
+    .plan-card.popular .plan-badge-btn {
+      background: var(--gold);
+      color: #0f172a;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+    }
+
+    .tag-popular {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--gold);
+      color: #0f172a;
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 10px;
+      border-bottom-left-radius: 8px;
+    }
+
+    /* ================= PAYMENT VIEW STYLES ================= */
+    .bank-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .bank-card p {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    .bank-card p:last-child { margin-bottom: 0; }
+    .bank-card strong { color: var(--text-main); }
+
+    .file-upload-box {
+      border: 2px dashed var(--accent-color);
+      background: rgba(99, 102, 241, 0.05);
+      border-radius: 16px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s ease;
+      margin-bottom: 24px;
+    }
+
+    .file-upload-box:hover {
+      background: rgba(99, 102, 241, 0.12);
+    }
+
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .upload-icon {
+      font-size: 32px;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .upload-text {
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .file-name {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--green-online);
+      font-weight: bold;
+      word-break: break-all;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px var(--accent-glow);
+      transition: all 0.2s ease;
+    }
+
+    .confirm-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    /* Floating Draggable Help Widget */
+    .draggable-help-wrapper {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 1000;
+      touch-action: none;
+      user-select: none;
+      display: none;
+    }
+
+    .help-btn {
+      background: #ff9800;
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(255, 152, 0, 0.5);
+      cursor: move;
+      transition: transform 0.2s ease;
+    }
+
+    .help-btn:hover { transform: scale(1.08); background: #e68a00; }
+
+    .support-options {
+      display: none;
+      position: absolute;
+      bottom: 58px;
+      right: 0;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1001;
+    }
+
+    .support-options.active { display: flex; }
+
+    .support-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      white-space: nowrap;
+    }
+
+    .telegram-btn { background: #0088cc; }
+    .whatsapp-btn { background: #25d366; }
+
+    /* Overlay Modal for Processing & Status */
+    .overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 20px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .overlay.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top: 4px solid var(--accent-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .success-icon {
+      font-size: 56px;
+      color: var(--green-online);
+      margin-bottom: 15px;
+    }
+
+    .error-icon {
+      font-size: 56px;
+      color: var(--danger);
+      margin-bottom: 15px;
+    }
+
+    .status-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .sub-status-text {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    /* Toast Notification Popup */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #10b981;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 9999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -832,16 +1300,6 @@
 
       <div class="divider"><span>OR</span></div>
       <button class="btn btn-secondary" onclick="showPage('signupView')">SIGN UP</button>
-
-      <div class="divider"><span>OR</span></div>
-      <div class="social-buttons">
-        <button class="social-btn" onclick="openHomeWithSocial()">
-          <i class="fa-solid fa-envelope" style="color: #ea4335;"></i> Gmail
-        </button>
-        <button class="social-btn" onclick="openHomeWithSocial()">
-          <i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook
-        </button>
-      </div>
     </div>
   </div>
 
@@ -878,6 +1336,18 @@
           <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm password" required>
         </div>
 
+        <!-- NEW INPUTS FOR REFERRAL AND PROMO CODE -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="referralInput">Referral (Username)</label>
+            <input type="text" id="referralInput" class="input-field" placeholder="e.g. @username">
+          </div>
+          <div class="form-group">
+            <label for="promoCodeInput">Promo Code</label>
+            <input type="text" id="promoCodeInput" class="input-field" placeholder="Optional">
+          </div>
+        </div>
+
         <div class="extra-fields">
           <div class="form-group date-input" style="margin-bottom: 0;">
             <input type="date" class="input-field" value="2021-02-22" required>
@@ -897,16 +1367,6 @@
 
       <div class="divider"><span>OR</span></div>
       <button class="btn btn-secondary" onclick="showPage('loginView')">SIGN IN</button>
-
-      <div class="divider"><span>OR</span></div>
-      <div class="social-buttons">
-        <button class="social-btn" onclick="openHomeWithSocial()">
-          <i class="fa-solid fa-envelope" style="color: #ea4335;"></i> Gmail
-        </button>
-        <button class="social-btn" onclick="openHomeWithSocial()">
-          <i class="fa-brands fa-facebook" style="color: #1877f2;"></i> Facebook
-        </button>
-      </div>
     </div>
   </div>
 
@@ -918,8 +1378,11 @@
         <button class="nav-btn active" onclick="showPage('homeView')">
           <i class="fa-solid fa-house"></i> Home
         </button>
-        <button class="nav-btn" onclick="showPage('vitimView')">
-          <i class="fa-solid fa-user-shield"></i> Vitim
+        <button class="nav-btn" onclick="showPage('inviteView')">
+          <i class="fa-solid fa-user-plus"></i> Invite
+        </button>
+        <button class="nav-btn" onclick="showPage('premiumView')">
+          <i class="fa-solid fa-crown" style="color: var(--gold);"></i> Premium
         </button>
         <button class="nav-btn" onclick="showPage('settingsView')">
           <i class="fa-solid fa-gear"></i> Settings
@@ -972,26 +1435,79 @@
   </div>
 
 
-  <!-- PAGE 4: VITIM -->
-  <div id="vitimView" class="view-page">
+  <!-- PAGE 4: INVITE VIEW -->
+  <div id="inviteView" class="view-page">
     <div class="app-card">
       <nav class="nav-bar">
         <button class="nav-btn" onclick="showPage('homeView')">
           <i class="fa-solid fa-house"></i> Home
         </button>
-        <button class="nav-btn active" onclick="showPage('vitimView')">
-          <i class="fa-solid fa-user-shield"></i> Vitim
+        <button class="nav-btn active" onclick="showPage('inviteView')">
+          <i class="fa-solid fa-user-plus"></i> Invite
+        </button>
+        <button class="nav-btn" onclick="showPage('premiumView')">
+          <i class="fa-solid fa-crown" style="color: var(--gold);"></i> Premium
         </button>
         <button class="nav-btn" onclick="showPage('settingsView')">
           <i class="fa-solid fa-gear"></i> Settings
         </button>
       </nav>
 
-      <div class="unavailable-box">
-        <i class="fa-solid fa-triangle-exclamation unavailable-icon"></i>
-        <h2 style="font-size: 18px; margin-bottom: 8px;">Page Unavailable</h2>
-        <p class="unavailable-text">This section is currently unavailable or under maintenance.</p>
-        <button class="btn btn-primary" onclick="showPage('homeView')">Return to Home</button>
+      <div class="profile-card-invite">
+        <div class="profile-avatar-invite" id="inviteAvatar">
+          <i class="fa-solid fa-user" id="inviteAvatarIcon"></i>
+          <img src="" id="inviteAvatarImg" style="display: none;" alt="Avatar">
+        </div>
+        <div class="profile-info-invite">
+          <span class="profile-name-invite" id="inviteProfileName">My Invites</span>
+          <span class="status-online"><span class="dot-online"></span> Online</span>
+        </div>
+      </div>
+
+      <div class="link-share-box">
+        <input type="text" id="inviteUrl" value="" readonly class="invite-url-input" />
+        <button class="btn-share" id="shareBtn">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+      </div>
+
+      <div class="section-title">Rewards</div>
+      <div class="rewards-list">
+        <div class="reward-item">
+          <span class="reward-target">Invite 2 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">24hrs Free</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-target">Invite 5 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">3 days Free</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-target">Invite 20 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">2 weeks Free</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-target">Invite 50 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">1 month Free</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-target">Invite 100 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">2 months Free</span>
+        </div>
+        <div class="reward-item">
+          <span class="reward-target">Invite 200 users</span>
+          <i class="fa-solid fa-arrow-right reward-arrow"></i>
+          <span class="reward-badge">5 months Free</span>
+        </div>
+      </div>
+
+      <div class="section-title">Users Invited</div>
+      <div class="invited-users-box" id="invitedUsersList">
+        <!-- Dynamically rendered registered referrals -->
       </div>
 
       <div class="app-footer">@Ghost empire 2026</div>
@@ -999,23 +1515,136 @@
   </div>
 
 
-  <!-- PAGE 5: SETTINGS VIEW -->
+  <!-- PAGE 5: PREMIUM SUBSCRIPTION VIEW -->
+  <div id="premiumView" class="view-page">
+    <div class="app-card">
+      <nav class="nav-bar">
+        <button class="nav-btn" onclick="showPage('homeView')">
+          <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button class="nav-btn" onclick="showPage('inviteView')">
+          <i class="fa-solid fa-user-plus"></i> Invite
+        </button>
+        <button class="nav-btn active" onclick="showPage('premiumView')">
+          <i class="fa-solid fa-crown" style="color: var(--gold);"></i> Premium
+        </button>
+        <button class="nav-btn" onclick="showPage('settingsView')">
+          <i class="fa-solid fa-gear"></i> Settings
+        </button>
+      </nav>
+
+      <div class="features-card">
+        <ul class="features-list">
+          <li><i class="fa-solid fa-check"></i> No time limits</li>
+          <li><i class="fa-solid fa-check"></i> Completely ad-free</li>
+          <li><i class="fa-solid fa-check"></i> Use on all devices free</li>
+        </ul>
+      </div>
+
+      <div class="plans-group">
+        <div class="plan-card" onclick="selectPlan('1week', '1,000', 1000)">
+          <div class="plan-info">
+            <span class="plan-price">&#8358;1,000</span>
+            <span class="plan-duration-sub">/ 1 week</span>
+          </div>
+          <div class="plan-badge-btn">1 Week</div>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('1month', '5,000', 5000)">
+          <div class="plan-info">
+            <span class="plan-price">&#8358;5,000</span>
+            <span class="plan-duration-sub">/ 1 month</span>
+          </div>
+          <div class="plan-badge-btn">1 Month</div>
+        </div>
+
+        <div class="plan-card popular" onclick="selectPlan('6months', '15,000', 15000)">
+          <span class="tag-popular">Popular</span>
+          <div class="plan-info">
+            <span class="plan-price">&#8358;15,000</span>
+            <span class="plan-duration-sub">/ 6 months</span>
+          </div>
+          <div class="plan-badge-btn">6 Months</div>
+        </div>
+
+        <div class="plan-card" onclick="selectPlan('unlimited', '30,000', 30000)">
+          <div class="plan-info">
+            <span class="plan-price">&#8358;30,000</span>
+            <span class="plan-duration-sub">/ lifetime access</span>
+          </div>
+          <div class="plan-badge-btn">Unlimited</div>
+        </div>
+      </div>
+
+      <div class="app-footer">@Ghost empire 2026</div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 6: PAYMENT VIEW -->
+  <div id="paymentView" class="view-page">
+    <div class="app-card">
+      <div class="header-bar">
+        <button class="back-btn" onclick="showPage('premiumView')" aria-label="Go Back">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="page-title">Payment</div>
+        <div style="width: 38px;"></div>
+      </div>
+
+      <div class="bank-card">
+        <p><strong>Selected Plan:</strong> <span id="selectedPlanText">1 Month</span></p>
+        <p><strong>Amount to Pay:</strong> <span id="selectedPriceText">&#8358;5,000</span></p>
+        <p><strong>Bank:</strong> OPay / Palmpay</p>
+        <p><strong>Name:</strong> Wellington Odinaka Ogbonnat</p>
+        <p><strong>Account Number:</strong> 8123456789</p>
+      </div>
+
+      <div class="file-upload-box">
+        <input type="file" id="receiptFileInput" accept="image/*" onchange="showFileName()">
+        <div class="upload-icon">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+        </div>
+        <div class="upload-text">Upload or drag payment receipt screenshot</div>
+        <div class="file-name" id="fileName"></div>
+      </div>
+
+      <button class="confirm-btn" onclick="processPayment()">Confirm Payment</button>
+
+      <!-- Loading / Confirmation Overlay -->
+      <div class="overlay" id="statusOverlay">
+        <div id="loader" class="spinner"></div>
+        <i id="successCheck" class="fa-solid fa-circle-check success-icon" style="display: none;"></i>
+        <i id="errorCross" class="fa-solid fa-circle-xmark error-icon" style="display: none;"></i>
+        <div class="status-text" id="statusTitle">Processing Payment...</div>
+        <div class="sub-status-text" id="statusSub">Scanning screenshot with OCR engine...</div>
+      </div>
+
+      <div class="app-footer">@Ghost empire 2026</div>
+    </div>
+  </div>
+
+
+  <!-- PAGE 7: SETTINGS VIEW -->
   <div id="settingsView" class="view-page">
     <div class="app-card">
       <nav class="nav-bar">
         <button class="nav-btn" onclick="showPage('homeView')">
           <i class="fa-solid fa-house"></i> Home
         </button>
-        <button class="nav-btn" onclick="showPage('vitimView')">
-          <i class="fa-solid fa-user-shield"></i> Vitim
+        <button class="nav-btn" onclick="showPage('inviteView')">
+          <i class="fa-solid fa-user-plus"></i> Invite
+        </button>
+        <button class="nav-btn" onclick="showPage('premiumView')">
+          <i class="fa-solid fa-crown" style="color: var(--gold);"></i> Premium
         </button>
         <button class="nav-btn active" onclick="showPage('settingsView')">
           <i class="fa-solid fa-gear"></i> Settings
         </button>
       </nav>
 
-      <div class="profile-card">
-        <div class="profile-info">
+      <div class="profile-card-settings">
+        <div class="profile-info-settings">
           <div class="avatar" id="settingsAvatar">
             <i class="fa-solid fa-user" id="settingsAvatarIcon"></i>
             <img src="" id="settingsAvatarImg" style="display: none;" alt="Avatar">
@@ -1052,7 +1681,7 @@
   </div>
 
 
-  <!-- PAGE 6: PROFILE VIEW -->
+  <!-- PAGE 8: PROFILE VIEW -->
   <div id="profileView" class="view-page">
     <div class="app-card">
       <div class="header-bar">
@@ -1073,7 +1702,7 @@
           <i class="fa-regular fa-image"></i> Edit photo
         </button>
 
-        <input type="file" id="fileInput" accept="image/*" onchange="previewImage(event)">
+        <input type="file" id="fileInputProfile" accept="image/*" onchange="previewImage(event)">
       </div>
 
       <form id="profileForm" onsubmit="saveProfile(event)">
@@ -1107,7 +1736,7 @@
   </div>
 
 
-  <!-- PAGE 7: POLICY VIEW -->
+  <!-- PAGE 9: POLICY VIEW -->
   <div id="policyView" class="view-page">
     <div class="app-card">
       <div class="header-bar">
@@ -1133,7 +1762,7 @@
         <ul>
           <li><strong>Account Information:</strong> When you register, we collect personal details such as your full name, email address, password, and account preferences.</li>
           <li><strong>Educational & Usage Data:</strong> We collect data regarding your interaction with the platform, including lesson progress, topic revisions, quiz responses, test scores, and feature usage.</li>
-          <li><strong>Device & Technical Data:</strong> Basic technical details (such as operating system, browser type, screen resolution, and IP address) may be processed to optimize the mobile interface and ensure security.</li>
+          <li><strong>Device & Technical Data:</strong> Basic technical details may be processed to optimize the mobile interface and ensure security.</li>
         </ul>
 
         <h3>2. How We Use Your Information</h3>
@@ -1146,19 +1775,12 @@
         </ul>
 
         <h3>3. Cookies & Browser Local Storage</h3>
-        <p>To ensure smooth navigation across pages without needing repeated logins, our application uses Browser Local Storage and Session Storage to store:</p>
-        <ul>
-          <li>Session tokens and login state.</li>
-          <li>Completed learning modules, scores, and practice quiz history.</li>
-          <li>UI settings (such as dark mode and visual display preferences).</li>
-        </ul>
-        <p>You can clear or disable local storage at any time through your web browser settings.</p>
+        <p>To ensure smooth navigation across pages without needing repeated logins, our application uses Browser Local Storage and Session Storage to store session tokens and settings.</p>
 
         <h3>4. Data Protection & Third Parties</h3>
         <ul>
           <li>We do not sell, trade, or rent your personal information to third parties.</li>
-          <li>We may utilize trusted third-party hosting, database, or deployment services (such as GitHub Pages, Netlify, Vercel, or cloud API providers) strictly to host and run site features.</li>
-          <li>We employ standard security measures to protect your personal information, though no transmission over the internet can be guaranteed as 100% secure.</li>
+          <li>We employ standard security measures to protect your personal information.</li>
         </ul>
 
         <h2>Part 2: Terms of Service & Site Rules</h2>
@@ -1166,41 +1788,32 @@
         <h3>5. Account Registration & Responsibilities</h3>
         <ul>
           <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
-          <li>You are responsible for all activities, submissions, and interactions performed under your account.</li>
-          <li>You agree to provide accurate registration information.</li>
+          <li>You are responsible for all activities performed under your account.</li>
         </ul>
 
         <h3>6. Acceptable Use</h3>
-        <p>When using the community platform, voice tools, and learning portal, you agree not to:</p>
-        <ul>
-          <li>Attempt to reverse-engineer, exploit, or bypass authentication and security features.</li>
-          <li>Use automated scripts, bots, or scrapers to extract curriculum content or site data.</li>
-          <li>Post or transmit harmful, offensive, unauthorized, or illegal content.</li>
-        </ul>
+        <p>When using the community platform, voice tools, and learning portal, you agree not to attempt to reverse-engineer or exploit authentication features.</p>
 
         <h3>7. Intellectual Property</h3>
         <ul>
-          <li>All curriculum materials, lesson explanations, quiz questions, dashboard designs, software code, and visual layouts are owned by the platform operator unless otherwise indicated.</li>
-          <li>Users are granted a limited, personal, non-exclusive, non-transferable license to access content for personal, educational, and revision purposes.</li>
+          <li>All curriculum materials, software code, and visual layouts are owned by the platform operator.</li>
         </ul>
 
         <h3>8. Educational Content & Financial Simulation Disclaimer</h3>
         <ul>
-          <li><strong>Educational Purpose:</strong> All practice quizzes, subject notes, and study tools are provided strictly for learning and examination preparation purposes.</li>
-          <li><strong>Dashboard / Simulation Features:</strong> Any numerical values, balance updates, virtual wallet displays, or transaction animations on the user dashboard are strictly for simulation and demonstration purposes unless explicitly stated otherwise.</li>
+          <li>All practice quizzes and study tools are provided strictly for learning purposes.</li>
         </ul>
 
         <h3>9. Limitation of Liability</h3>
-        <p>The platform and all contents are provided on an "as is" and "as available" basis without warranties of any kind. We are not liable for any direct, indirect, incidental, or consequential damages resulting from your use of, or inability to use, the platform.</p>
+        <p>The platform and all contents are provided on an "as is" basis without warranties of any kind.</p>
 
         <h3>10. Service Modifications & Account Termination</h3>
         <ul>
-          <li>We reserve the right to modify, suspend, or discontinue any feature, tool, or service on the site at any time.</li>
-          <li>Accounts found violating these terms or engaging in activities that disrupt the platform may be suspended or terminated without prior notice.</li>
+          <li>We reserve the right to modify or suspend services at any time.</li>
         </ul>
 
         <h3>11. Contact & Updates</h3>
-        <p>We may update this policy periodically to reflect changes in site features or legal requirements. Updated versions will be posted directly on this page with an updated "Last Updated" date.</p>
+        <p>We may update this policy periodically to reflect changes in site features or legal requirements.</p>
       </div>
 
       <div class="app-footer">@Ghost empire 2026</div>
@@ -1208,37 +1821,97 @@
   </div>
 
 
+  <!-- Floating Draggable Support Menu -->
+  <div class="draggable-help-wrapper" id="draggableHelp">
+    <button class="help-btn" id="helpDragBtn">
+      <i class="fa-solid fa-headset"></i>
+    </button>
+
+    <div class="support-options" id="supportOptions">
+      <a href="https://t.me/your_telegram_username" target="_blank" class="support-link telegram-btn">
+        <i class="fa-brands fa-telegram"></i> Telegram
+      </a>
+      <a href="https://wa.me/2347012420074" target="_blank" class="support-link whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+      </a>
+    </div>
+  </div>
+
+  <!-- Toast Notification Popup -->
+  <div class="toast" id="toast">Link copied to clipboard!</div>
+
+
   <!-- JavaScript Logic -->
   <script>
-    // Initialize Local Storage state on page load
+    let currentSelectedPrice = 5000;
+    let paymentSelectedTime = null;
+
     window.addEventListener('DOMContentLoaded', () => {
+      // Parse URL Parameters for Referral Links
+      const urlParams = new URLSearchParams(window.location.search);
+      const refUser = urlParams.get('ref');
+      if (refUser) {
+        const refInput = document.getElementById('referralInput');
+        if (refInput) {
+          refInput.value = refUser.startsWith('@') ? refUser : `@${refUser}`;
+        }
+      }
+
       syncUIWithStorage();
       
-      // Page Persistence
       const savedPage = localStorage.getItem('currentPage') || 'loginView';
-      
-      // Verify user existence if navigating to restricted views
       const user = getUserData();
-      if (!user && (savedPage === 'homeView' || savedPage === 'vitimView' || savedPage === 'settingsView' || savedPage === 'profileView' || savedPage === 'policyView')) {
+      if (!user && (savedPage !== 'loginView' && savedPage !== 'signupView')) {
         showPage('loginView');
       } else {
         showPage(savedPage);
       }
+
+      initShareButton();
+      initDraggableHelp();
     });
 
-    // Retrieve user data helper
+    // Retrieve active user
     function getUserData() {
       const data = localStorage.getItem('ghostUser');
       return data ? JSON.parse(data) : null;
     }
 
-    // Save user data helper
+    // Save active user
     function setUserData(userData) {
       localStorage.setItem('ghostUser', JSON.stringify(userData));
       syncUIWithStorage();
     }
 
-    // Navigation and LocalStorage state recorder
+    // Retrieve all registered accounts
+    function getAllUsers() {
+      const data = localStorage.getItem('ghostAllUsers');
+      return data ? JSON.parse(data) : [];
+    }
+
+    // Save registered user accounts array
+    function saveAllUsers(users) {
+      localStorage.setItem('ghostAllUsers', JSON.stringify(users));
+    }
+
+    // Helper for relative time string
+    function timeAgo(timestamp) {
+      if (!timestamp) return 'recently';
+      const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
+      let interval = Math.floor(seconds / 31536000);
+      if (interval >= 1) return interval + " year" + (interval > 1 ? "s" : "") + " ago";
+      interval = Math.floor(seconds / 2592000);
+      if (interval >= 1) return interval + " month" + (interval > 1 ? "s" : "") + " ago";
+      interval = Math.floor(seconds / 86400);
+      if (interval >= 1) return interval + " day" + (interval > 1 ? "s" : "") + " ago";
+      interval = Math.floor(seconds / 3600);
+      if (interval >= 1) return interval + " hr" + (interval > 1 ? "s" : "") + " ago";
+      interval = Math.floor(seconds / 60);
+      if (interval >= 1) return interval + " min" + (interval > 1 ? "s" : "") + " ago";
+      return "just now";
+    }
+
+    // Navigation and Page Persistence
     function showPage(pageId) {
       document.querySelectorAll('.view-page').forEach(page => {
         page.classList.remove('active');
@@ -1248,16 +1921,40 @@
         targetPage.classList.add('active');
         localStorage.setItem('currentPage', pageId);
       }
+
+      const helpWidget = document.getElementById('draggableHelp');
+      if (pageId === 'loginView' || pageId === 'signupView') {
+        helpWidget.style.display = 'none';
+      } else {
+        helpWidget.style.display = 'block';
+      }
+
+      const supportOptions = document.getElementById('supportOptions');
+      if (supportOptions) supportOptions.classList.remove('active');
     }
 
-    // Sync HTML Elements across pages with LocalStorage
+    // Sync UI components across all pages with LocalStorage
     function syncUIWithStorage() {
       const user = getUserData();
       if (!user) return;
 
-      // Update Settings Page Card
+      // Update Settings View Card
       document.getElementById('displayProfileName').innerText = `${user.firstName} ${user.secondName}`;
       document.getElementById('displayProfileUsername').innerText = user.username.startsWith('@') ? user.username : `@${user.username}`;
+
+      // Update Invite View Profile Name
+      const inviteNameElem = document.getElementById('inviteProfileName');
+      if (inviteNameElem) {
+        inviteNameElem.innerText = `${user.firstName} ${user.secondName}`;
+      }
+
+      // Update Invite Link with Website URL + Referral parameter
+      const inviteUrlElem = document.getElementById('inviteUrl');
+      if (inviteUrlElem) {
+        const cleanUsername = user.username.replace(/^@/, '');
+        const officialUrl = window.location.origin + window.location.pathname;
+        inviteUrlElem.value = `${officialUrl}?ref=${cleanUsername}`;
+      }
 
       // Update Profile Inputs
       document.getElementById('editFirstName').value = user.firstName;
@@ -1265,21 +1962,72 @@
       document.getElementById('editUsername').value = user.username;
       document.getElementById('editContact').value = user.contact;
 
-      // Update Images
+      // Update Avatar/Profile Images across Settings, Profile & Invite Pages
       if (user.profilePic) {
-        // Settings avatar
+        // Settings Page
         const settingsImg = document.getElementById('settingsAvatarImg');
         const settingsIcon = document.getElementById('settingsAvatarIcon');
         settingsImg.src = user.profilePic;
         settingsImg.style.display = 'block';
         settingsIcon.style.display = 'none';
 
-        // Profile avatar
+        // Profile Page
         const profileImg = document.getElementById('profileImg');
         const defaultIcon = document.getElementById('defaultIcon');
         profileImg.src = user.profilePic;
         profileImg.style.display = 'block';
         defaultIcon.style.display = 'none';
+
+        // Invite Page
+        const inviteImg = document.getElementById('inviteAvatarImg');
+        const inviteIcon = document.getElementById('inviteAvatarIcon');
+        if (inviteImg && inviteIcon) {
+          inviteImg.src = user.profilePic;
+          inviteImg.style.display = 'block';
+          inviteIcon.style.display = 'none';
+        }
+      } else {
+        // Fallback to default icons if no custom image is selected
+        document.getElementById('settingsAvatarImg').style.display = 'none';
+        document.getElementById('settingsAvatarIcon').style.display = 'block';
+
+        document.getElementById('profileImg').style.display = 'none';
+        document.getElementById('defaultIcon').style.display = 'block';
+
+        const inviteImg = document.getElementById('inviteAvatarImg');
+        const inviteIcon = document.getElementById('inviteAvatarIcon');
+        if (inviteImg && inviteIcon) {
+          inviteImg.style.display = 'none';
+          inviteIcon.style.display = 'block';
+        }
+      }
+
+      // Sync Invited Users list dynamically on Invite Page
+      renderInvitedUsers(user.username);
+    }
+
+    // Render registered referrals for the active user
+    function renderInvitedUsers(currentUsername) {
+      const container = document.getElementById('invitedUsersList');
+      if (!container) return;
+
+      const allUsers = getAllUsers();
+      const cleanCurrent = currentUsername.toLowerCase().replace(/^@/, '');
+
+      const myReferrals = allUsers.filter(u => {
+        if (!u.referredBy) return false;
+        return u.referredBy.toLowerCase().replace(/^@/, '') === cleanCurrent;
+      });
+
+      if (myReferrals.length === 0) {
+        container.innerHTML = `<div style="padding: 10px 0; font-size: 0.85rem; color: var(--text-sub);">No registered invites yet.</div>`;
+      } else {
+        container.innerHTML = myReferrals.map(u => `
+          <div class="invited-item">
+            <span class="user-name">${u.firstName} ${u.secondName}</span>
+            <span class="time-ago">${timeAgo(u.registeredAt)}</span>
+          </div>
+        `).join('');
       }
     }
 
@@ -1292,13 +2040,33 @@
       const contact = document.getElementById('contactInfo').value.trim();
       const password = document.getElementById('signupPassword').value;
       const confirmPassword = document.getElementById('confirmPassword').value;
+      const referral = document.getElementById('referralInput').value.trim();
+      const promoCode = document.getElementById('promoCodeInput').value.trim();
 
       if (password !== confirmPassword) {
         alert('Passwords do not match!');
         return;
       }
 
-      // Automatically generate a username
+      const allUsers = getAllUsers();
+
+      // Check duplicate Name (Case-insensitive full name matching)
+      const fullNameInput = `${firstName} ${secondName}`.toLowerCase();
+      const nameExists = allUsers.some(u => `${u.firstName} ${u.secondName}`.toLowerCase() === fullNameInput);
+
+      if (nameExists) {
+        alert(`An account with the name "${firstName} ${secondName}" already exists. Please use a different name.`);
+        return;
+      }
+
+      // Check duplicate Email / Contact
+      const contactExists = allUsers.some(u => u.contact.toLowerCase() === contact.toLowerCase());
+
+      if (contactExists) {
+        alert(`An account with the email/phone "${contact}" has already been opened. Account creation declined.`);
+        return;
+      }
+
       const generatedUsername = `@${firstName}${secondName}`.replace(/\s+/g, '');
 
       const newUserData = {
@@ -1307,10 +2075,18 @@
         username: generatedUsername,
         contact: contact,
         password: password,
-        profilePic: ''
+        profilePic: '',
+        referredBy: referral,
+        promoCode: promoCode,
+        registeredAt: new Date().toISOString()
       };
 
+      // Save user to active session and accounts repository
       setUserData(newUserData);
+
+      allUsers.push(newUserData);
+      saveAllUsers(allUsers);
+
       alert('Account created successfully!');
       showPage('homeView');
     }
@@ -1321,30 +2097,20 @@
       const inputContact = document.getElementById('loginUsername').value.trim();
       const inputPass = document.getElementById('loginPassword').value;
 
-      const user = getUserData();
+      const allUsers = getAllUsers();
+      const foundUser = allUsers.find(u => u.contact.toLowerCase() === inputContact.toLowerCase());
 
-      if (!user) {
+      if (!foundUser) {
         alert('No account found! Please sign up first.');
         showPage('signupView');
         return;
       }
 
-      // Check credentials against local data
-      if (inputContact === user.contact && inputPass === user.password) {
+      if (inputPass === foundUser.password) {
+        setUserData(foundUser);
         showPage('homeView');
       } else {
         alert('Invalid email/phone number or password!');
-      }
-    }
-
-    // SOCIAL LOGIN ACTION
-    function openHomeWithSocial() {
-      const user = getUserData();
-      if (!user) {
-        alert('Please create an account before accessing the app.');
-        showPage('signupView');
-      } else {
-        showPage('homeView');
       }
     }
 
@@ -1353,9 +2119,9 @@
       showPage('loginView');
     }
 
-    // Image Upload
+    // Image Upload (Profile Settings)
     function triggerFileInput() {
-      document.getElementById('fileInput').click();
+      document.getElementById('fileInputProfile').click();
     }
 
     function previewImage(event) {
@@ -1387,11 +2153,10 @@
         newUsername = `@${newUsername}`;
       }
 
-      // Update user state
       user.firstName = newFirstName;
       user.secondName = newSecondName;
       user.username = newUsername;
-      user.contact = newContact; // Updates the login credential requirement
+      user.contact = newContact;
 
       setUserData(user);
 
@@ -1399,7 +2164,7 @@
       showPage('settingsView');
     }
 
-    // Copy to clipboard function
+    // Copy link helper
     function copyLink(elementId, button) {
       const linkElement = document.getElementById(elementId);
       const textToCopy = linkElement.href || linkElement.innerText;
@@ -1414,6 +2179,228 @@
         }, 1500);
       }).catch(err => {
         console.error('Failed to copy: ', err);
+      });
+    }
+
+    // Pass Plan details to Payment Page and record selection timestamp
+    function selectPlan(plan, priceText, rawPrice) {
+      currentSelectedPrice = rawPrice;
+      paymentSelectedTime = new Date(); // Start 10-minute timeout clock
+
+      document.getElementById('selectedPlanText').textContent = plan.toUpperCase();
+      document.getElementById('selectedPriceText').innerHTML = '&#8358;' + priceText;
+      
+      // Clear file inputs
+      document.getElementById('receiptFileInput').value = '';
+      document.getElementById('fileName').textContent = '';
+
+      showPage('paymentView');
+    }
+
+    // Show Payment Receipt File Name
+    function showFileName() {
+      const fileInput = document.getElementById('receiptFileInput');
+      const fileNameDiv = document.getElementById('fileName');
+      if (fileInput.files.length > 0) {
+        fileNameDiv.textContent = "Selected: " + fileInput.files[0].name;
+      }
+    }
+
+    // OCR Verification & Timed Payment Processing Logic
+    async function processPayment() {
+      const fileInput = document.getElementById('receiptFileInput');
+      const overlay = document.getElementById('statusOverlay');
+      const loader = document.getElementById('loader');
+      const successCheck = document.getElementById('successCheck');
+      const errorCross = document.getElementById('errorCross');
+      const statusTitle = document.getElementById('statusTitle');
+      const statusSub = document.getElementById('statusSub');
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please upload a screenshot of your payment slip first!');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      if (!file.type.startsWith('image/')) {
+        alert('Invalid file format. Please upload an image screenshot of your payment slip.');
+        return;
+      }
+
+      // 10-Minute Timeout Validation Check
+      if (paymentSelectedTime) {
+        const timeDiffMinutes = (new Date() - paymentSelectedTime) / (1000 * 60);
+        if (timeDiffMinutes > 10) {
+          overlay.classList.add('active');
+          loader.style.display = 'none';
+          errorCross.style.display = 'block';
+          statusTitle.textContent = "Payment Time Expired!";
+          statusSub.textContent = "More than 10 minutes elapsed before uploading. Transaction declined.";
+
+          setTimeout(() => {
+            overlay.classList.remove('active');
+            loader.style.display = 'block';
+            errorCross.style.display = 'none';
+            showPage('premiumView');
+          }, 3500);
+          return;
+        }
+      }
+
+      overlay.classList.add('active');
+      loader.style.display = 'block';
+      successCheck.style.display = 'none';
+      errorCross.style.display = 'none';
+      statusTitle.textContent = "Analyzing Payment Slip...";
+      statusSub.textContent = "Reading screenshot with OCR scanner...";
+
+      try {
+        // Optical Character Recognition scan on uploaded screenshot
+        const result = await Tesseract.recognize(file, 'eng');
+        const text = result.data.text.toLowerCase().replace(/[\,\s\.\#]/g, '');
+
+        // Account Number and Holder Name Validation
+        const hasAccount = text.includes('8123456789');
+        const hasName = text.includes('wellington') || text.includes('odinaka') || text.includes('ogbonnat');
+
+        // Payment Amount Validation
+        const priceString = currentSelectedPrice.toString();
+        const hasAmount = text.includes(priceString);
+
+        if (hasAccount && hasName && hasAmount) {
+          loader.style.display = 'none';
+          successCheck.style.display = 'block';
+          statusTitle.textContent = "Payment Confirmed!";
+          statusSub.textContent = "Receipt verified successfully! Redirecting...";
+
+          setTimeout(() => {
+            overlay.classList.remove('active');
+            loader.style.display = 'block';
+            successCheck.style.display = 'none';
+            showPage('homeView');
+          }, 2500);
+        } else {
+          loader.style.display = 'none';
+          errorCross.style.display = 'block';
+          statusTitle.textContent = "Verification Failed!";
+          statusSub.textContent = "Receipt must show transfer of ₦" + currentSelectedPrice.toLocaleString() + " to 8123456789 (Wellington Odinaka Ogbonnat).";
+
+          setTimeout(() => {
+            overlay.classList.remove('active');
+            loader.style.display = 'block';
+            errorCross.style.display = 'none';
+          }, 4000);
+        }
+      } catch (err) {
+        console.error("OCR Reading Error: ", err);
+        loader.style.display = 'none';
+        errorCross.style.display = 'block';
+        statusTitle.textContent = "Error Reading Image";
+        statusSub.textContent = "Could not parse image text. Ensure screenshot is clear.";
+
+        setTimeout(() => {
+          overlay.classList.remove('active');
+          loader.style.display = 'block';
+          errorCross.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Share Button Logic for Invite Page
+    function initShareButton() {
+      const shareBtn = document.getElementById('shareBtn');
+      const inviteUrlInput = document.getElementById('inviteUrl');
+
+      if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+          const shareData = {
+            title: 'Join me on Ghost Pro!',
+            text: 'Use my invite link to get free access!',
+            url: inviteUrlInput.value
+          };
+
+          try {
+            await navigator.clipboard.writeText(inviteUrlInput.value);
+          } catch (err) {
+            inviteUrlInput.select();
+            document.execCommand('copy');
+          }
+
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+            } catch (err) {
+              console.log('Share canceled or not completed.');
+            }
+          } else {
+            showToast('Link copied to clipboard!');
+          }
+        });
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Draggable Floating Help Button Logic
+    function initDraggableHelp() {
+      const wrapper = document.getElementById('draggableHelp');
+      const btn = document.getElementById('helpDragBtn');
+      const supportOptions = document.getElementById('supportOptions');
+
+      let isDragging = false;
+      let startX, startY, initialX, initialY;
+      let hasDragged = false;
+
+      btn.addEventListener('click', (e) => {
+        if (!hasDragged) {
+          supportOptions.classList.toggle('active');
+        }
+      });
+
+      wrapper.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        hasDragged = false;
+        startX = e.clientX;
+        startY = e.clientY;
+
+        const rect = wrapper.getBoundingClientRect();
+        initialX = rect.left;
+        initialY = rect.top;
+
+        wrapper.setPointerCapture(e.pointerId);
+      });
+
+      wrapper.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+          hasDragged = true;
+        }
+
+        const newLeft = initialX + dx;
+        const newTop = initialY + dy;
+
+        wrapper.style.left = `${newLeft}px`;
+        wrapper.style.top = `${newTop}px`;
+        wrapper.style.right = 'auto';
+        wrapper.style.bottom = 'auto';
+      });
+
+      wrapper.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        try {
+          wrapper.releasePointerCapture(e.pointerId);
+        } catch (err) {}
       });
     }
   </script>
