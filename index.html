@@ -1525,7 +1525,7 @@
 
       <div class="line-divider"></div>
 
-      <!-- PREMIUM SERVICES SECTION (TikTok link removed per instructions) -->
+      <!-- PREMIUM SERVICES SECTION -->
       <div class="section-title gold-title"><i class="fa-solid fa-crown"></i> Premium Services</div>
       <div class="premium-link-list">
         <div class="premium-link-item">
@@ -1714,9 +1714,9 @@
       <div class="bank-card">
         <p><strong>Selected Plan:</strong> <span id="selectedPlanText">1 Month</span></p>
         <p><strong>Amount to Pay:</strong> <span id="selectedPriceText">&#8358;5,000</span></p>
-        <p><strong>Bank:</strong> OPay / Palmpay</p>
-        <p><strong>Name:</strong> Wellington Odinaka Ogbonnat</p>
-        <p><strong>Account Number:</strong> 8123456789</p>
+        <p><strong>Bank:</strong> OPay / PalmPay</p>
+        <p><strong>Name:</strong> Wellington Odinaka Ogbonna</p>
+        <p><strong>Account Number:</strong> 7055347479</p>
       </div>
 
       <div class="file-upload-box">
@@ -2041,36 +2041,33 @@
       return "just now";
     }
 
-    // Premium Verification Check (Timed Invites, Subscriptions, Promo Codes or Unlimited Plan)
+    // Premium Verification Check
     function isPremiumActive(user) {
       if (!user) return false;
       if (user.unlimitedAccess) return true;
 
       const now = new Date().getTime();
 
-      // Check manually purchased subscription expiry
       if (user.premiumExpiry && new Date(user.premiumExpiry).getTime() > now) {
         return true;
       }
 
-      // Check Promo Code Expiry (24-hour access via promo code "ghost5551346")
       if (user.promoExpiry && new Date(user.promoExpiry).getTime() > now) {
         return true;
       }
 
-      // Check Free Tier Granted via Referral Invites Count
       const allUsers = getAllUsers();
       const cleanCurrent = user.username.toLowerCase().replace(/^@/, '');
       const referrals = allUsers.filter(u => u.referredBy && u.referredBy.toLowerCase().replace(/^@/, '') === cleanCurrent);
       const inviteCount = referrals.length;
 
       let hoursGranted = 0;
-      if (inviteCount >= 200) hoursGranted = 150 * 24;      // 5 months (150 days)
-      else if (inviteCount >= 100) hoursGranted = 60 * 24;  // 2 months (60 days)
-      else if (inviteCount >= 50) hoursGranted = 30 * 24;   // 1 month (30 days)
-      else if (inviteCount >= 20) hoursGranted = 14 * 24;   // 20 invites = 2 weeks (14 days)
-      else if (inviteCount >= 5) hoursGranted = 3 * 24;     // 5 invites = 3 days (72 hours)
-      else if (inviteCount >= 2) hoursGranted = 24;         // 2 invites = 24 hours
+      if (inviteCount >= 200) hoursGranted = 150 * 24;
+      else if (inviteCount >= 100) hoursGranted = 60 * 24;
+      else if (inviteCount >= 50) hoursGranted = 30 * 24;
+      else if (inviteCount >= 20) hoursGranted = 14 * 24;
+      else if (inviteCount >= 5) hoursGranted = 3 * 24;
+      else if (inviteCount >= 2) hoursGranted = 24;
 
       if (hoursGranted > 0 && user.registeredAt) {
         const regTime = new Date(user.registeredAt).getTime();
@@ -2083,7 +2080,6 @@
       return false;
     }
 
-    // Intercept clicks on Premium URLs if subscription is expired/inactive
     function handlePremiumLinkClick(event) {
       const user = getUserData();
       if (!isPremiumActive(user)) {
@@ -2093,7 +2089,6 @@
       }
     }
 
-    // Intercept copy actions for Premium Links
     function handlePremiumCopy(elementId, button) {
       const user = getUserData();
       if (!isPremiumActive(user)) {
@@ -2104,7 +2099,6 @@
       copyLink(elementId, button);
     }
 
-    // Navigation and Page Persistence
     function showPage(pageId) {
       document.querySelectorAll('.view-page').forEach(page => {
         page.classList.remove('active');
@@ -2126,22 +2120,18 @@
       if (supportOptions) supportOptions.classList.remove('active');
     }
 
-    // Sync UI components across all pages with LocalStorage
     function syncUIWithStorage() {
       const user = getUserData();
       if (!user) return;
 
-      // Update Settings View Card
       document.getElementById('displayProfileName').innerText = `${user.firstName} ${user.secondName}`;
       document.getElementById('displayProfileUsername').innerText = user.username.startsWith('@') ? user.username : `@${user.username}`;
 
-      // Update Invite View Profile Name
       const inviteNameElem = document.getElementById('inviteProfileName');
       if (inviteNameElem) {
         inviteNameElem.innerText = `${user.firstName} ${user.secondName}`;
       }
 
-      // Update Invite Link with Website URL + Referral parameter
       const inviteUrlElem = document.getElementById('inviteUrl');
       if (inviteUrlElem) {
         const cleanUsername = user.username.replace(/^@/, '');
@@ -2149,13 +2139,11 @@
         inviteUrlElem.value = `${officialUrl}?ref=${cleanUsername}`;
       }
 
-      // Update Profile Inputs
       document.getElementById('editFirstName').value = user.firstName;
       document.getElementById('editSecondName').value = user.secondName;
       document.getElementById('editUsername').value = user.username;
       document.getElementById('editContact').value = user.contact;
 
-      // Update Avatar/Profile Images across Settings, Profile & Invite Pages
       if (user.profilePic) {
         const settingsImg = document.getElementById('settingsAvatarImg');
         const settingsIcon = document.getElementById('settingsAvatarIcon');
@@ -2191,11 +2179,9 @@
         }
       }
 
-      // Sync Invited Users list dynamically on Invite Page
       renderInvitedUsers(user.username);
     }
 
-    // Render registered referrals for the active user
     function renderInvitedUsers(currentUsername) {
       const container = document.getElementById('invitedUsersList');
       if (!container) return;
@@ -2220,7 +2206,6 @@
       }
     }
 
-    // SIGN UP ACTION
     function handleCreateAccount(event) {
       event.preventDefault();
 
@@ -2239,7 +2224,6 @@
 
       const allUsers = getAllUsers();
 
-      // Check duplicate Name (Case-insensitive full name matching)
       const fullNameInput = `${firstName} ${secondName}`.toLowerCase();
       const nameExists = allUsers.some(u => `${u.firstName} ${u.secondName}`.toLowerCase() === fullNameInput);
 
@@ -2248,7 +2232,6 @@
         return;
       }
 
-      // Check duplicate Email / Contact
       const contactExists = allUsers.some(u => u.contact.toLowerCase() === contact.toLowerCase());
 
       if (contactExists) {
@@ -2260,7 +2243,6 @@
 
       let promoExpiry = null;
       if (promoCode === PROMO_CODE_REQUIRED) {
-        // 24 hours free premium access via valid promo code ghost5551346
         const now = new Date();
         now.setHours(now.getHours() + 24);
         promoExpiry = now.toISOString();
@@ -2284,7 +2266,6 @@
       allUsers.push(newUserData);
       saveAllUsers(allUsers);
 
-      // Save user to active session
       setUserData(newUserData);
 
       if (promoExpiry) {
@@ -2296,7 +2277,6 @@
       showPage('homeView');
     }
 
-    // LOGIN ACTION
     function handleLogin(event) {
       event.preventDefault();
       const inputContact = document.getElementById('loginUsername').value.trim();
@@ -2319,12 +2299,10 @@
       }
     }
 
-    // LOGOUT ACTION
     function handleLogout() {
       showPage('loginView');
     }
 
-    // Image Upload (Profile Settings)
     function triggerFileInput() {
       document.getElementById('fileInputProfile').click();
     }
@@ -2342,7 +2320,6 @@
       }
     }
 
-    // SAVE PROFILE CHANGES ACTION
     function saveProfile(event) {
       event.preventDefault();
 
@@ -2369,7 +2346,6 @@
       showPage('settingsView');
     }
 
-    // Universal Link Copier for Standard Links
     function copyLink(elementId, button) {
       const linkElement = document.getElementById(elementId);
       const textToCopy = linkElement.href || linkElement.innerText;
@@ -2389,23 +2365,20 @@
       });
     }
 
-    // Pass Plan details to Payment Page and record selection timestamp
     function selectPlan(plan, priceText, rawPrice, daysGranted) {
       currentSelectedPrice = rawPrice;
       selectedPlanDays = daysGranted;
-      paymentSelectedTime = new Date(); // Start 10-minute timeout clock
+      paymentSelectedTime = new Date();
 
       document.getElementById('selectedPlanText').textContent = plan.toUpperCase();
       document.getElementById('selectedPriceText').innerHTML = '&#8358;' + priceText;
       
-      // Clear file inputs
       document.getElementById('receiptFileInput').value = '';
       document.getElementById('fileName').textContent = '';
 
       showPage('paymentView');
     }
 
-    // Show Payment Receipt File Name
     function showFileName() {
       const fileInput = document.getElementById('receiptFileInput');
       const fileNameDiv = document.getElementById('fileName');
@@ -2435,15 +2408,15 @@
         return;
       }
 
-      // 10-Minute Timeout Validation Check
+      // 10-Minute Timeout Validation
       if (paymentSelectedTime) {
         const timeDiffMinutes = (new Date() - paymentSelectedTime) / (1000 * 60);
         if (timeDiffMinutes > 10) {
           overlay.classList.add('active');
           loader.style.display = 'none';
           errorCross.style.display = 'block';
-          statusTitle.textContent = "Payment Time Expired!";
-          statusSub.textContent = "More than 10 minutes elapsed before uploading. Transaction declined.";
+          statusTitle.textContent = "Payment Expired!";
+          statusSub.textContent = "Time on the slip is longer than 10 minutes. Transaction declined.";
 
           setTimeout(() => {
             overlay.classList.remove('active');
@@ -2466,9 +2439,9 @@
         const result = await Tesseract.recognize(file, 'eng');
         const text = result.data.text.toLowerCase().replace(/[\,\s\.\#]/g, '');
 
-        // Account Number and Holder Name Validation
-        const hasAccount = text.includes('8123456789');
-        const hasName = text.includes('wellington') || text.includes('odinaka') || text.includes('ogbonnat');
+        // Strictly Validate Account Number (7055347479) and Holder Name (Ogbonna / Wellington / Odinaka)
+        const hasAccount = text.includes('7055347479');
+        const hasName = text.includes('ogbonna') || text.includes('wellington') || text.includes('odinaka');
 
         // Payment Amount Validation
         const priceString = currentSelectedPrice.toString();
@@ -2477,10 +2450,10 @@
         if (hasAccount && hasName && hasAmount) {
           loader.style.display = 'none';
           successCheck.style.display = 'block';
-          statusTitle.textContent = "Payment Confirmed!";
-          statusSub.textContent = "Receipt verified successfully! Access unlocked.";
+          statusTitle.textContent = "Payment Approved!";
+          statusSub.textContent = "Verification successful! Access to premium links unlocked.";
 
-          // Update user subscription state
+          // Unlock premium access for user
           const user = getUserData();
           if (user) {
             if (selectedPlanDays === 'unlimited') {
@@ -2502,8 +2475,8 @@
         } else {
           loader.style.display = 'none';
           errorCross.style.display = 'block';
-          statusTitle.textContent = "Verification Failed!";
-          statusSub.textContent = "Receipt must show transfer of ₦" + currentSelectedPrice.toLocaleString() + " to 8123456789 (Wellington Odinaka Ogbonnat).";
+          statusTitle.textContent = "Payment Declined!";
+          statusSub.textContent = "Receipt must show transfer of ₦" + currentSelectedPrice.toLocaleString() + " to 7055347479 (Wellington Odinaka Ogbonna).";
 
           setTimeout(() => {
             overlay.classList.remove('active');
@@ -2526,7 +2499,6 @@
       }
     }
 
-    // Share Button Logic for Invite Page
     function initShareButton() {
       const shareBtn = document.getElementById('shareBtn');
       const inviteUrlInput = document.getElementById('inviteUrl');
@@ -2568,7 +2540,6 @@
       }, 2500);
     }
 
-    // Draggable Floating Help Button Logic
     function initDraggableHelp() {
       const wrapper = document.getElementById('draggableHelp');
       const btn = document.getElementById('helpDragBtn');
