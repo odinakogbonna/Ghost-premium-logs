@@ -30,6 +30,7 @@
       --danger: #ef4444;
       --danger-hover: #dc2626;
       --gold: #fbbf24;
+      --gold-glow: rgba(251, 191, 36, 0.25);
     }
 
     * {
@@ -278,7 +279,7 @@
     .line-divider {
       height: 1px;
       background: var(--card-border);
-      margin-bottom: 24px;
+      margin: 20px 0;
     }
 
     /* Section Headers */
@@ -292,12 +293,19 @@
       text-align: left;
     }
 
+    .section-title.gold-title {
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
     /* Social Apps Grid */
     .social-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .social-card {
@@ -352,7 +360,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
-      width: 75px;
+      width: 80px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -400,6 +408,91 @@
     .copy-btn.copied {
       background: var(--success);
       color: #ffffff;
+    }
+
+    /* PREMIUM LINK LIST STYLES */
+    .premium-link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .premium-link-item {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      border-radius: 12px;
+      padding: 10px 12px;
+      gap: 10px;
+      box-shadow: 0 4px 15px -3px var(--gold-glow);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .premium-link-item:hover {
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .premium-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      width: 85px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .premium-lock-icon {
+      color: var(--gold);
+      font-size: 11px;
+    }
+
+    .premium-url {
+      flex: 1;
+      color: #fef08a;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: left;
+    }
+
+    .premium-url:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .copy-btn-premium {
+      background: linear-gradient(135deg, #fbbf24, #d97706);
+      color: #0f172a;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
+    }
+
+    .copy-btn-premium:hover {
+      filter: brightness(1.1);
+      transform: scale(1.02);
+    }
+
+    .copy-btn-premium.copied {
+      background: var(--success);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
     }
 
     .app-footer {
@@ -1430,6 +1523,42 @@
         </div>
       </div>
 
+      <div class="line-divider"></div>
+
+      <!-- NEW PREMIUM SERVICES SECTION BELOW QUICK LINKS -->
+      <div class="section-title gold-title"><i class="fa-solid fa-crown"></i> Premium Services</div>
+      <div class="premium-link-list">
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-brands fa-facebook" style="color: #1877f2;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            FB
+          </div>
+          <a href="https://facebook1-brown.vercel.app/" target="_blank" class="premium-url" id="prem-link-fb">https://facebook1-brown.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="copyLink('prem-link-fb', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-brands fa-instagram" style="color: #e4405f;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            IG
+          </div>
+          <a href="https://instagram-1-rho.vercel.app/" target="_blank" class="premium-url" id="prem-link-ig">https://instagram-1-rho.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="copyLink('prem-link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            TikTok
+          </div>
+          <a href="https://tiktok-ashy-zeta.vercel.app/" target="_blank" class="premium-url" id="prem-link-tiktok">https://tiktok-ashy-zeta.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="copyLink('prem-link-tiktok', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+      </div>
+
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
@@ -2164,7 +2293,7 @@
       showPage('settingsView');
     }
 
-    // Copy link helper
+    // Universal Link Copier for Standard & Premium Links
     function copyLink(elementId, button) {
       const linkElement = document.getElementById(elementId);
       const textToCopy = linkElement.href || linkElement.innerText;
@@ -2173,10 +2302,12 @@
         button.classList.add('copied');
         button.innerHTML = `<i class="fa-solid fa-check"></i> Copied`;
 
+        showToast('Link copied to clipboard!');
+
         setTimeout(() => {
           button.classList.remove('copied');
           button.innerHTML = `<i class="fa-regular fa-copy"></i> Copy`;
-        }, 1500);
+        }, 1800);
       }).catch(err => {
         console.error('Failed to copy: ', err);
       });
