@@ -4,8 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ghost Pro</title>
+  <!-- Google Fonts for modern typography -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome for official social icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tesseract.js OCR Engine for Payment Verification -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 
   <style>
@@ -49,6 +52,7 @@
       position: relative;
     }
 
+    /* Page Visibility Controls */
     .view-page {
       display: none;
       width: 100%;
@@ -60,6 +64,7 @@
       display: flex;
     }
 
+    /* Card Containers */
     .app-card {
       width: 100%;
       max-width: 440px;
@@ -72,10 +77,26 @@
       position: relative;
     }
 
-    .logo-container { margin-bottom: 10px; }
-    .logo-icon { font-size: 48px; color: var(--primary); margin-bottom: 5px; }
-    .app-title { font-size: 24px; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 20px; color: var(--text-main); }
+    /* Logo Styling */
+    .logo-container {
+      margin-bottom: 10px;
+    }
 
+    .logo-icon {
+      font-size: 48px;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    /* Top Navigation */
     .nav-bar {
       display: flex;
       background: #0f172a;
@@ -105,12 +126,36 @@
       gap: 4px;
     }
 
-    .nav-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
-    .nav-btn.active { background: var(--primary); color: #ffffff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
 
-    .form-row { display: flex; gap: 10px; }
-    .form-group { text-align: left; margin-bottom: 14px; flex: 1; }
-    .form-group label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 6px; }
+    .nav-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Form Layouts & Inputs */
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 14px;
+      flex: 1;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
 
     .input-field {
       width: 100%;
@@ -124,8 +169,11 @@
       transition: border-color 0.2s;
     }
 
-    .input-field:focus { border-color: var(--primary); }
+    .input-field:focus {
+      border-color: var(--primary);
+    }
 
+    /* Checkbox Group */
     .checkbox-group {
       display: flex;
       align-items: center;
@@ -136,8 +184,12 @@
       cursor: pointer;
     }
 
-    .checkbox-group input { accent-color: var(--primary); cursor: pointer; }
+    .checkbox-group input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
 
+    /* Date & Gender Controls */
     .extra-fields {
       display: flex;
       justify-content: space-between;
@@ -146,7 +198,9 @@
       margin-bottom: 20px;
     }
 
-    .date-input { width: 130px; }
+    .date-input {
+      width: 130px;
+    }
 
     .gender-group {
       display: flex;
@@ -156,9 +210,19 @@
       color: var(--text-muted);
     }
 
-    .gender-option { display: flex; align-items: center; gap: 4px; cursor: pointer; }
-    .gender-option input { accent-color: var(--primary); cursor: pointer; }
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
 
+    .gender-option input {
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Action Buttons */
     .btn {
       width: 100%;
       padding: 12px;
@@ -170,11 +234,27 @@
       transition: all 0.2s;
     }
 
-    .btn-primary { background-color: var(--primary); color: white; }
-    .btn-primary:hover { background-color: var(--primary-hover); }
-    .btn-secondary { background-color: transparent; border: 1px solid var(--card-border); color: var(--text-main); }
-    .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.05); border-color: var(--text-muted); }
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
 
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-color: var(--text-muted);
+    }
+
+    /* Dividers */
     .divider {
       display: flex;
       align-items: center;
@@ -185,10 +265,24 @@
       font-weight: 600;
     }
 
-    .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--card-border); }
-    .divider span { padding: 0 10px; }
-    .line-divider { height: 1px; background: var(--card-border); margin: 20px 0; }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--card-border);
+    }
 
+    .divider span {
+      padding: 0 10px;
+    }
+
+    .line-divider {
+      height: 1px;
+      background: var(--card-border);
+      margin: 20px 0;
+    }
+
+    /* Section Headers */
     .section-title {
       font-size: 12px;
       font-weight: 700;
@@ -199,9 +293,21 @@
       text-align: left;
     }
 
-    .section-title.gold-title { color: var(--gold); display: flex; align-items: center; gap: 6px; }
+    .section-title.gold-title {
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
+    /* Social Apps Grid */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
     .social-card {
       display: flex;
       align-items: center;
@@ -217,8 +323,14 @@
       transition: all 0.2s ease;
     }
 
-    .social-card i { font-size: 18px; }
-    .social-card:hover { transform: translateY(-2px); border-color: #475569; }
+    .social-card i {
+      font-size: 18px;
+    }
+
+    .social-card:hover {
+      transform: translateY(-2px);
+      border-color: #475569;
+    }
 
     .fa-facebook { color: #1877f2; }
     .fa-instagram { color: #e4405f; }
@@ -227,7 +339,13 @@
     .fa-telegram { color: #24a1de; }
     .fa-whatsapp { color: #25d366; }
 
-    .link-list { display: flex; flex-direction: column; gap: 12px; }
+    /* Link Copy List */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .link-item {
       display: flex;
       align-items: center;
@@ -262,7 +380,10 @@
       transition: color 0.2s;
     }
 
-    .link-url:hover { color: #60a5fa; text-decoration: underline; }
+    .link-url:hover {
+      color: #60a5fa;
+      text-decoration: underline;
+    }
 
     .copy-btn {
       background: rgba(255, 255, 255, 0.08);
@@ -280,10 +401,22 @@
       flex-shrink: 0;
     }
 
-    .copy-btn:hover { background: rgba(255, 255, 255, 0.15); }
-    .copy-btn.copied { background: var(--success); color: #ffffff; }
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
 
-    .premium-link-list { display: flex; flex-direction: column; gap: 12px; }
+    .copy-btn.copied {
+      background: var(--success);
+      color: #ffffff;
+    }
+
+    /* PREMIUM LINK LIST STYLES */
+    .premium-link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .premium-link-item {
       display: flex;
       align-items: center;
@@ -296,9 +429,26 @@
       transition: transform 0.2s, border-color 0.2s;
     }
 
-    .premium-link-item:hover { border-color: var(--gold); transform: translateY(-1px); }
-    .premium-label { font-size: 13px; font-weight: 700; color: var(--text-main); width: 85px; flex-shrink: 0; display: flex; align-items: center; gap: 6px; }
-    .premium-lock-icon { color: var(--gold); font-size: 11px; }
+    .premium-link-item:hover {
+      border-color: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .premium-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      width: 85px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .premium-lock-icon {
+      color: var(--gold);
+      font-size: 11px;
+    }
 
     .premium-url {
       flex: 1;
@@ -312,7 +462,10 @@
       text-align: left;
     }
 
-    .premium-url:hover { color: #ffffff; text-decoration: underline; }
+    .premium-url:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
 
     .copy-btn-premium {
       background: linear-gradient(135deg, #fbbf24, #d97706);
@@ -331,8 +484,16 @@
       box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3);
     }
 
-    .copy-btn-premium:hover { filter: brightness(1.1); transform: scale(1.02); }
-    .copy-btn-premium.copied { background: var(--success); color: #ffffff; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3); }
+    .copy-btn-premium:hover {
+      filter: brightness(1.1);
+      transform: scale(1.02);
+    }
+
+    .copy-btn-premium.copied {
+      background: var(--success);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
 
     .app-footer {
       margin-top: 24px;
@@ -344,6 +505,7 @@
       letter-spacing: 0.05em;
     }
 
+    /* Settings View Styles */
     .profile-card-settings {
       display: flex;
       align-items: center;
@@ -355,7 +517,12 @@
       margin-bottom: 20px;
     }
 
-    .profile-info-settings { display: flex; align-items: center; gap: 12px; }
+    .profile-info-settings {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .avatar {
       width: 44px;
       height: 44px;
@@ -370,10 +537,27 @@
       overflow: hidden;
     }
 
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .user-details { text-align: left; }
-    .user-details .name { font-size: 15px; font-weight: 700; color: var(--text-main); }
-    .user-details .username { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .user-details {
+      text-align: left;
+    }
+
+    .user-details .name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .user-details .username {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
 
     .edit-btn {
       background: transparent;
@@ -387,9 +571,18 @@
       transition: all 0.2s;
     }
 
-    .edit-btn:hover { background: rgba(59, 130, 246, 0.1); border-color: var(--primary); }
+    .edit-btn:hover {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--primary);
+    }
 
-    .menu-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
     .menu-item {
       display: flex;
       align-items: center;
@@ -404,10 +597,28 @@
       transition: all 0.2s ease;
     }
 
-    .menu-item:hover { border-color: #475569; transform: translateY(-1px); }
-    .menu-title { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 600; }
-    .menu-title i { font-size: 16px; color: var(--primary); }
-    .arrow-icon { color: var(--text-muted); font-size: 14px; }
+    .menu-item:hover {
+      border-color: #475569;
+      transform: translateY(-1px);
+    }
+
+    .menu-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .menu-title i {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .arrow-icon {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
 
     .logout-btn {
       width: 100%;
@@ -426,9 +637,21 @@
       transition: all 0.2s;
     }
 
-    .logout-btn:hover { background: var(--danger); color: #ffffff; border-color: var(--danger); }
+    .logout-btn:hover {
+      background: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger);
+    }
 
-    .header-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; position: relative; }
+    /* Profile & Policy Header */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
     .back-btn {
       background: #0f172a;
       border: 1px solid var(--card-border);
@@ -444,10 +667,29 @@
       transition: all 0.2s;
     }
 
-    .back-btn:hover { background: rgba(255, 255, 255, 0.05); border-color: var(--primary); color: var(--primary); }
-    .page-title { font-size: 18px; font-weight: 700; color: var(--text-main); position: absolute; left: 50%; transform: translateX(-50%); }
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
 
-    .profile-photo-section { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; }
+    .page-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Profile View Specific Styles */
+    .profile-photo-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
     .photo-container {
       width: 100px;
       height: 100px;
@@ -463,8 +705,16 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    .photo-container img { width: 100%; height: 100%; object-fit: cover; }
-    .default-icon { font-size: 48px; color: var(--text-muted); }
+    .photo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .default-icon {
+      font-size: 48px;
+      color: var(--text-muted);
+    }
 
     .edit-photo-btn {
       background: transparent;
@@ -479,13 +729,42 @@
       transition: color 0.2s;
     }
 
-    .edit-photo-btn:hover { color: var(--primary-hover); text-decoration: underline; }
-    #fileInputProfile { display: none; }
+    .edit-photo-btn:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
 
-    .details-card { background: #0f172a; border: 1px solid var(--card-border); border-radius: 14px; overflow: hidden; }
-    .detail-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--card-border); }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-label { font-size: 13px; font-weight: 600; color: var(--text-muted); width: 120px; flex-shrink: 0; text-align: left; }
+    #fileInputProfile {
+      display: none;
+    }
+
+    .details-card {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .detail-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      width: 120px;
+      flex-shrink: 0;
+      text-align: left;
+    }
 
     .detail-input {
       background: transparent;
@@ -501,7 +780,10 @@
       transition: background 0.2s, color 0.2s;
     }
 
-    .detail-input:focus { background: var(--card-bg); color: var(--primary); }
+    .detail-input:focus {
+      background: var(--card-bg);
+      color: var(--primary);
+    }
 
     .save-btn {
       width: 100%;
@@ -517,8 +799,11 @@
       transition: background 0.2s;
     }
 
-    .save-btn:hover { background: var(--primary-hover); }
+    .save-btn:hover {
+      background: var(--primary-hover);
+    }
 
+    /* Policy Page Styling */
     .policy-content {
       text-align: left;
       font-size: 13px;
@@ -529,15 +814,49 @@
       padding-right: 8px;
     }
 
-    .policy-content::-webkit-scrollbar { width: 6px; }
-    .policy-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
-    .policy-content h2 { font-size: 16px; color: var(--text-main); margin-top: 16px; margin-bottom: 8px; }
-    .policy-content h3 { font-size: 14px; color: var(--primary); margin-top: 14px; margin-bottom: 6px; }
-    .policy-content p { margin-bottom: 10px; }
-    .policy-content ul { margin-left: 18px; margin-bottom: 12px; }
-    .policy-content li { margin-bottom: 6px; }
-    .meta-date { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+    .policy-content::-webkit-scrollbar {
+      width: 6px;
+    }
 
+    .policy-content::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 4px;
+    }
+
+    .policy-content h2 {
+      font-size: 16px;
+      color: var(--text-main);
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    .policy-content h3 {
+      font-size: 14px;
+      color: var(--primary);
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    .policy-content p {
+      margin-bottom: 10px;
+    }
+
+    .policy-content ul {
+      margin-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    .policy-content li {
+      margin-bottom: 6px;
+    }
+
+    .meta-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ================= INVITE VIEW STYLES ================= */
     .profile-card-invite {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--card-border);
@@ -564,11 +883,37 @@
       overflow: hidden;
     }
 
-    .profile-avatar-invite img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-info-invite { display: flex; flex-direction: column; }
-    .profile-name-invite { font-size: 1.05rem; font-weight: 700; }
-    .status-online { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--text-sub); }
-    .dot-online { width: 8px; height: 8px; background: var(--green-online); border-radius: 50%; box-shadow: 0 0 8px var(--green-online); }
+    .profile-avatar-invite img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info-invite {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-name-invite {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .status-online {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+    }
+
+    .dot-online {
+      width: 8px;
+      height: 8px;
+      background: var(--green-online);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green-online);
+    }
 
     .link-share-box {
       display: flex;
@@ -651,11 +996,19 @@
       overflow-y: auto;
     }
 
-    .invited-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .invited-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
     .invited-item:last-child { border-bottom: none; }
     .user-name { font-size: 0.92rem; font-weight: 600; }
     .time-ago { font-size: 0.8rem; color: var(--text-sub); }
 
+    /* ================= PREMIUM VIEW STYLES ================= */
     .features-card {
       background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
       border: 1px solid rgba(99, 102, 241, 0.3);
@@ -665,11 +1018,36 @@
       text-align: left;
     }
 
-    .features-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .features-list li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; font-weight: 500; color: var(--text-main); }
-    .features-list li i { color: #38bdf8; font-size: 0.9rem; background: rgba(56, 189, 248, 0.15); padding: 5px; border-radius: 50%; }
+    .features-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
-    .plans-group { display: flex; flex-direction: column; gap: 14px; }
+    .features-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .features-list li i {
+      color: #38bdf8;
+      font-size: 0.9rem;
+      background: rgba(56, 189, 248, 0.15);
+      padding: 5px;
+      border-radius: 50%;
+    }
+
+    .plans-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
     .plan-card {
       background: #0f172a;
       border: 1px solid var(--card-border);
@@ -694,9 +1072,26 @@
     }
 
     .plan-card:active { transform: scale(0.98); }
-    .plan-info { display: flex; flex-direction: column; gap: 2px; text-align: left; }
-    .plan-price { font-size: 1.25rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
-    .plan-duration-sub { font-size: 0.8rem; color: var(--text-sub); font-weight: 500; }
+
+    .plan-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+    }
+
+    .plan-price {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+
+    .plan-duration-sub {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
 
     .plan-badge-btn {
       background: var(--accent-color);
@@ -711,8 +1106,17 @@
     }
 
     .plan-card:hover .plan-badge-btn { background: #4f46e5; }
-    .plan-card.popular { border-color: rgba(251, 191, 36, 0.5); background: rgba(251, 191, 36, 0.05); }
-    .plan-card.popular .plan-badge-btn { background: var(--gold); color: #0f172a; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3); }
+
+    .plan-card.popular {
+      border-color: rgba(251, 191, 36, 0.5);
+      background: rgba(251, 191, 36, 0.05);
+    }
+
+    .plan-card.popular .plan-badge-btn {
+      background: var(--gold);
+      color: #0f172a;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+    }
 
     .tag-popular {
       position: absolute;
@@ -727,6 +1131,7 @@
       border-bottom-left-radius: 8px;
     }
 
+    /* ================= PAYMENT VIEW STYLES ================= */
     .bank-card {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--card-border);
@@ -736,7 +1141,12 @@
       text-align: left;
     }
 
-    .bank-card p { font-size: 0.9rem; color: var(--text-sub); margin-bottom: 8px; }
+    .bank-card p {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
     .bank-card p:last-child { margin-bottom: 0; }
     .bank-card strong { color: var(--text-main); }
 
@@ -752,12 +1162,39 @@
       margin-bottom: 24px;
     }
 
-    .file-upload-box:hover { background: rgba(99, 102, 241, 0.12); }
-    .file-upload-box input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .file-upload-box:hover {
+      background: rgba(99, 102, 241, 0.12);
+    }
 
-    .upload-icon { font-size: 32px; color: var(--accent-color); margin-bottom: 8px; }
-    .upload-text { font-size: 0.9rem; color: var(--accent-color); font-weight: 600; }
-    .file-name { margin-top: 8px; font-size: 0.8rem; color: var(--green-online); font-weight: bold; word-break: break-all; }
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .upload-icon {
+      font-size: 32px;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .upload-text {
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    .file-name {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--green-online);
+      font-weight: bold;
+      word-break: break-all;
+    }
 
     .confirm-btn {
       width: 100%;
@@ -773,8 +1210,12 @@
       transition: all 0.2s ease;
     }
 
-    .confirm-btn:hover { background: #4f46e5; transform: translateY(-2px); }
+    .confirm-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-2px);
+    }
 
+    /* Floating Draggable Help Widget */
     .draggable-help-wrapper {
       position: fixed;
       bottom: 30px;
@@ -832,6 +1273,7 @@
     .telegram-btn { background: #0088cc; }
     .whatsapp-btn { background: #25d366; }
 
+    /* Overlay Modal for Processing & Status */
     .overlay {
       display: none;
       position: absolute;
@@ -849,7 +1291,10 @@
       padding: 20px;
     }
 
-    .overlay.active { display: flex; animation: fadeIn 0.3s ease-in; }
+    .overlay.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-in;
+    }
 
     .spinner {
       width: 48px;
@@ -861,11 +1306,31 @@
       margin-bottom: 20px;
     }
 
-    .success-icon { font-size: 56px; color: var(--green-online); margin-bottom: 15px; }
-    .error-icon { font-size: 56px; color: var(--danger); margin-bottom: 15px; }
-    .status-text { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
-    .sub-status-text { font-size: 0.85rem; color: var(--text-sub); }
+    .success-icon {
+      font-size: 56px;
+      color: var(--green-online);
+      margin-bottom: 15px;
+    }
 
+    .error-icon {
+      font-size: 56px;
+      color: var(--danger);
+      margin-bottom: 15px;
+    }
+
+    .status-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .sub-status-text {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    /* Toast Notification Popup */
     .toast {
       position: fixed;
       bottom: 30px;
@@ -882,10 +1347,19 @@
       z-index: 9999;
     }
 
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
 
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -922,6 +1396,7 @@
     </div>
   </div>
 
+
   <!-- PAGE 2: SIGN UP -->
   <div id="signupView" class="view-page">
     <div class="app-card">
@@ -954,6 +1429,7 @@
           <input type="password" id="confirmPassword" class="input-field" placeholder="Confirm password" required>
         </div>
 
+        <!-- NEW INPUTS FOR REFERRAL AND PROMO CODE -->
         <div class="form-row">
           <div class="form-group">
             <label for="referralInput">Referral (Username)</label>
@@ -986,6 +1462,7 @@
       <button class="btn btn-secondary" onclick="showPage('loginView')">SIGN IN</button>
     </div>
   </div>
+
 
   <!-- PAGE 3: HOME / DASHBOARD HUB -->
   <div id="homeView" class="view-page">
@@ -1048,6 +1525,7 @@
 
       <div class="line-divider"></div>
 
+      <!-- PREMIUM SERVICES SECTION (TikTok link removed per instructions) -->
       <div class="section-title gold-title"><i class="fa-solid fa-crown"></i> Premium Services</div>
       <div class="premium-link-list">
         <div class="premium-link-item">
@@ -1056,8 +1534,8 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             FB
           </div>
-          <a href="https://facebook1-brown.vercel.app/" target="_blank" class="premium-url" id="prem-link-fb">https://facebook1-brown.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="copyLink('prem-link-fb', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://facebook1-brown.vercel.app/" target="_blank" class="premium-url" id="prem-link-fb" onclick="handlePremiumLinkClick(event)">https://facebook1-brown.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-fb', this)"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
 
         <div class="premium-link-item">
@@ -1066,24 +1544,15 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             IG
           </div>
-          <a href="https://instagram-1-rho.vercel.app/" target="_blank" class="premium-url" id="prem-link-ig">https://instagram-1-rho.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="copyLink('prem-link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
-        </div>
-
-        <div class="premium-link-item">
-          <div class="premium-label">
-            <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i>
-            <i class="fa-solid fa-lock premium-lock-icon"></i>
-            TikTok
-          </div>
-          <a href="https://tiktok-ashy-zeta.vercel.app/" target="_blank" class="premium-url" id="prem-link-tiktok">https://tiktok-ashy-zeta.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="copyLink('prem-link-tiktok', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://instagram-1-rho.vercel.app/" target="_blank" class="premium-url" id="prem-link-ig" onclick="handlePremiumLinkClick(event)">https://instagram-1-rho.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
       </div>
 
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
+
 
   <!-- PAGE 4: INVITE VIEW -->
   <div id="inviteView" class="view-page">
@@ -1156,11 +1625,14 @@
       </div>
 
       <div class="section-title">Users Invited</div>
-      <div class="invited-users-box" id="invitedUsersList"></div>
+      <div class="invited-users-box" id="invitedUsersList">
+        <!-- Dynamically rendered registered referrals -->
+      </div>
 
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
+
 
   <!-- PAGE 5: PREMIUM SUBSCRIPTION VIEW -->
   <div id="premiumView" class="view-page">
@@ -1189,7 +1661,7 @@
       </div>
 
       <div class="plans-group">
-        <div class="plan-card" onclick="selectPlan('1week', '1,000', 1000)">
+        <div class="plan-card" onclick="selectPlan('1week', '1,000', 1000, 7)">
           <div class="plan-info">
             <span class="plan-price">&#8358;1,000</span>
             <span class="plan-duration-sub">/ 1 week</span>
@@ -1197,7 +1669,7 @@
           <div class="plan-badge-btn">1 Week</div>
         </div>
 
-        <div class="plan-card" onclick="selectPlan('1month', '5,000', 5000)">
+        <div class="plan-card" onclick="selectPlan('1month', '5,000', 5000, 30)">
           <div class="plan-info">
             <span class="plan-price">&#8358;5,000</span>
             <span class="plan-duration-sub">/ 1 month</span>
@@ -1205,7 +1677,7 @@
           <div class="plan-badge-btn">1 Month</div>
         </div>
 
-        <div class="plan-card popular" onclick="selectPlan('6months', '15,000', 15000)">
+        <div class="plan-card popular" onclick="selectPlan('6months', '15,000', 15000, 180)">
           <span class="tag-popular">Popular</span>
           <div class="plan-info">
             <span class="plan-price">&#8358;15,000</span>
@@ -1214,7 +1686,7 @@
           <div class="plan-badge-btn">6 Months</div>
         </div>
 
-        <div class="plan-card" onclick="selectPlan('unlimited', '30,000', 30000)">
+        <div class="plan-card" onclick="selectPlan('unlimited', '30,000', 30000, 'unlimited')">
           <div class="plan-info">
             <span class="plan-price">&#8358;30,000</span>
             <span class="plan-duration-sub">/ lifetime access</span>
@@ -1226,6 +1698,7 @@
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
+
 
   <!-- PAGE 6: PAYMENT VIEW -->
   <div id="paymentView" class="view-page">
@@ -1257,6 +1730,7 @@
 
       <button class="confirm-btn" onclick="processPayment()">Confirm Payment</button>
 
+      <!-- Loading / Confirmation Overlay -->
       <div class="overlay" id="statusOverlay">
         <div id="loader" class="spinner"></div>
         <i id="successCheck" class="fa-solid fa-circle-check success-icon" style="display: none;"></i>
@@ -1268,6 +1742,7 @@
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
+
 
   <!-- PAGE 7: SETTINGS VIEW -->
   <div id="settingsView" class="view-page">
@@ -1324,6 +1799,7 @@
     </div>
   </div>
 
+
   <!-- PAGE 8: PROFILE VIEW -->
   <div id="profileView" class="view-page">
     <div class="app-card">
@@ -1378,6 +1854,7 @@
     </div>
   </div>
 
+
   <!-- PAGE 9: POLICY VIEW -->
   <div id="policyView" class="view-page">
     <div class="app-card">
@@ -1399,21 +1876,71 @@
         <p>Welcome to our platform. By accessing or using our website, registered user accounts, learning modules, and interactive dashboards, you agree to be bound by the following unified Terms of Service and Privacy Policy. Please read them carefully.</p>
 
         <h2>Part 1: Privacy & Data Usage</h2>
+        
         <h3>1. Information We Collect</h3>
         <ul>
-          <li><strong>Account Information:</strong> Full name, email address, password, and account preferences.</li>
-          <li><strong>Educational & Usage Data:</strong> Platform interaction and progress records.</li>
+          <li><strong>Account Information:</strong> When you register, we collect personal details such as your full name, email address, password, and account preferences.</li>
+          <li><strong>Educational & Usage Data:</strong> We collect data regarding your interaction with the platform, including lesson progress, topic revisions, quiz responses, test scores, and feature usage.</li>
+          <li><strong>Device & Technical Data:</strong> Basic technical details may be processed to optimize the mobile interface and ensure security.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We use your data strictly to:</p>
+        <ul>
+          <li>Provide, maintain, and personalize your learning experience and platform dashboard.</li>
+          <li>Save your educational progress, quiz metrics, and user preferences locally or in our database.</li>
+          <li>Authenticate your account, handle password resets, and manage active sessions.</li>
+          <li>Improve site responsiveness, usability, and visual display features.</li>
+        </ul>
+
+        <h3>3. Cookies & Browser Local Storage</h3>
+        <p>To ensure smooth navigation across pages without needing repeated logins, our application uses Browser Local Storage and Session Storage to store session tokens and settings.</p>
+
+        <h3>4. Data Protection & Third Parties</h3>
+        <ul>
+          <li>We do not sell, trade, or rent your personal information to third parties.</li>
+          <li>We employ standard security measures to protect your personal information.</li>
         </ul>
 
         <h2>Part 2: Terms of Service & Site Rules</h2>
-        <h3>2. Acceptable Use</h3>
-        <p>You agree not to attempt to reverse-engineer or exploit authentication features.</p>
+
+        <h3>5. Account Registration & Responsibilities</h3>
+        <ul>
+          <li>You are responsible for maintaining the confidentiality of your login credentials.</li>
+          <li>You are responsible for all activities performed under your account.</li>
+        </ul>
+
+        <h3>6. Acceptable Use</h3>
+        <p>When using the community platform, voice tools, and learning portal, you agree not to attempt to reverse-engineer or exploit authentication features.</p>
+
+        <h3>7. Intellectual Property</h3>
+        <ul>
+          <li>All curriculum materials, software code, and visual layouts are owned by the platform operator.</li>
+        </ul>
+
+        <h3>8. Educational Content & Financial Simulation Disclaimer</h3>
+        <ul>
+          <li>All practice quizzes and study tools are provided strictly for learning purposes.</li>
+        </ul>
+
+        <h3>9. Limitation of Liability</h3>
+        <p>The platform and all contents are provided on an "as is" basis without warranties of any kind.</p>
+
+        <h3>10. Service Modifications & Account Termination</h3>
+        <ul>
+          <li>We reserve the right to modify or suspend services at any time.</li>
+        </ul>
+
+        <h3>11. Contact & Updates</h3>
+        <p>We may update this policy periodically to reflect changes in site features or legal requirements.</p>
       </div>
 
       <div class="app-footer">@Ghost empire 2026</div>
     </div>
   </div>
 
+
+  <!-- Floating Draggable Support Menu -->
   <div class="draggable-help-wrapper" id="draggableHelp">
     <button class="help-btn" id="helpDragBtn">
       <i class="fa-solid fa-headset"></i>
@@ -1429,19 +1956,20 @@
     </div>
   </div>
 
+  <!-- Toast Notification Popup -->
   <div class="toast" id="toast">Link copied to clipboard!</div>
 
-  <script>
-    // Dynamically detects if hosted on Vercel or locally, pointing directly to your deployed Vercel backend
-    const API_BASE_URL = window.location.origin.includes("ghost-premium-logs-cao2.vercel.app") 
-      ? "" 
-      : "https://ghost-premium-logs-cao2.vercel.app";
 
+  <!-- JavaScript Logic -->
+  <script>
     let currentSelectedPrice = 5000;
-    let selectedPlanCode = '1month';
+    let selectedPlanDays = 30;
     let paymentSelectedTime = null;
 
+    const PROMO_CODE_REQUIRED = "ghost5551346";
+
     window.addEventListener('DOMContentLoaded', () => {
+      // Parse URL Parameters for Referral Links
       const urlParams = new URLSearchParams(window.location.search);
       const refUser = urlParams.get('ref');
       if (refUser) {
@@ -1465,25 +1993,38 @@
       initDraggableHelp();
     });
 
+    // Retrieve active user
     function getUserData() {
       const data = localStorage.getItem('ghostUser');
       return data ? JSON.parse(data) : null;
     }
 
+    // Save active user and sync back to main user collection
     function setUserData(userData) {
       localStorage.setItem('ghostUser', JSON.stringify(userData));
+      if (userData && userData.contact) {
+        const allUsers = getAllUsers();
+        const index = allUsers.findIndex(u => u.contact.toLowerCase() === userData.contact.toLowerCase());
+        if (index !== -1) {
+          allUsers[index] = userData;
+          saveAllUsers(allUsers);
+        }
+      }
       syncUIWithStorage();
     }
 
+    // Retrieve all registered accounts
     function getAllUsers() {
       const data = localStorage.getItem('ghostAllUsers');
       return data ? JSON.parse(data) : [];
     }
 
+    // Save registered user accounts array
     function saveAllUsers(users) {
       localStorage.setItem('ghostAllUsers', JSON.stringify(users));
     }
 
+    // Helper for relative time string
     function timeAgo(timestamp) {
       if (!timestamp) return 'recently';
       const seconds = Math.floor((new Date() - new Date(timestamp)) / 1000);
@@ -1500,6 +2041,70 @@
       return "just now";
     }
 
+    // Premium Verification Check (Timed Invites, Subscriptions, Promo Codes or Unlimited Plan)
+    function isPremiumActive(user) {
+      if (!user) return false;
+      if (user.unlimitedAccess) return true;
+
+      const now = new Date().getTime();
+
+      // Check manually purchased subscription expiry
+      if (user.premiumExpiry && new Date(user.premiumExpiry).getTime() > now) {
+        return true;
+      }
+
+      // Check Promo Code Expiry (24-hour access via promo code "ghost5551346")
+      if (user.promoExpiry && new Date(user.promoExpiry).getTime() > now) {
+        return true;
+      }
+
+      // Check Free Tier Granted via Referral Invites Count
+      const allUsers = getAllUsers();
+      const cleanCurrent = user.username.toLowerCase().replace(/^@/, '');
+      const referrals = allUsers.filter(u => u.referredBy && u.referredBy.toLowerCase().replace(/^@/, '') === cleanCurrent);
+      const inviteCount = referrals.length;
+
+      let hoursGranted = 0;
+      if (inviteCount >= 200) hoursGranted = 150 * 24;      // 5 months (150 days)
+      else if (inviteCount >= 100) hoursGranted = 60 * 24;  // 2 months (60 days)
+      else if (inviteCount >= 50) hoursGranted = 30 * 24;   // 1 month (30 days)
+      else if (inviteCount >= 200 / 10) hoursGranted = 14 * 24; // 20 invites = 2 weeks (14 days)
+      else if (inviteCount >= 5) hoursGranted = 3 * 24;     // 5 invites = 3 days (72 hours)
+      else if (inviteCount >= 2) hoursGranted = 24;         // 2 invites = 24 hours
+
+      if (hoursGranted > 0 && user.registeredAt) {
+        const regTime = new Date(user.registeredAt).getTime();
+        const accessEndTime = regTime + (hoursGranted * 60 * 60 * 1000);
+        if (now < accessEndTime) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    // Intercept clicks on Premium URLs if subscription is expired/inactive
+    function handlePremiumLinkClick(event) {
+      const user = getUserData();
+      if (!isPremiumActive(user)) {
+        event.preventDefault();
+        alert('Access to Premium Links is restricted. Redirecting to verification and subscription page...');
+        showPage('premiumView');
+      }
+    }
+
+    // Intercept copy actions for Premium Links
+    function handlePremiumCopy(elementId, button) {
+      const user = getUserData();
+      if (!isPremiumActive(user)) {
+        alert('Access to Copy Premium Links is restricted. Redirecting to verification and subscription page...');
+        showPage('premiumView');
+        return;
+      }
+      copyLink(elementId, button);
+    }
+
+    // Navigation and Page Persistence
     function showPage(pageId) {
       document.querySelectorAll('.view-page').forEach(page => {
         page.classList.remove('active');
@@ -1521,30 +2126,36 @@
       if (supportOptions) supportOptions.classList.remove('active');
     }
 
+    // Sync UI components across all pages with LocalStorage
     function syncUIWithStorage() {
       const user = getUserData();
       if (!user) return;
 
-      document.getElementById('displayProfileName').innerText = `${user.firstName || ''} ${user.secondName || ''}`;
-      document.getElementById('displayProfileUsername').innerText = user.username ? (user.username.startsWith('@') ? user.username : `@${user.username}`) : '@user';
+      // Update Settings View Card
+      document.getElementById('displayProfileName').innerText = `${user.firstName} ${user.secondName}`;
+      document.getElementById('displayProfileUsername').innerText = user.username.startsWith('@') ? user.username : `@${user.username}`;
 
+      // Update Invite View Profile Name
       const inviteNameElem = document.getElementById('inviteProfileName');
       if (inviteNameElem) {
-        inviteNameElem.innerText = `${user.firstName || ''} ${user.secondName || ''}`;
+        inviteNameElem.innerText = `${user.firstName} ${user.secondName}`;
       }
 
+      // Update Invite Link with Website URL + Referral parameter
       const inviteUrlElem = document.getElementById('inviteUrl');
-      if (inviteUrlElem && user.username) {
+      if (inviteUrlElem) {
         const cleanUsername = user.username.replace(/^@/, '');
         const officialUrl = window.location.origin + window.location.pathname;
         inviteUrlElem.value = `${officialUrl}?ref=${cleanUsername}`;
       }
 
-      if (document.getElementById('editFirstName')) document.getElementById('editFirstName').value = user.firstName || '';
-      if (document.getElementById('editSecondName')) document.getElementById('editSecondName').value = user.secondName || '';
-      if (document.getElementById('editUsername')) document.getElementById('editUsername').value = user.username || '';
-      if (document.getElementById('editContact')) document.getElementById('editContact').value = user.contact || '';
+      // Update Profile Inputs
+      document.getElementById('editFirstName').value = user.firstName;
+      document.getElementById('editSecondName').value = user.secondName;
+      document.getElementById('editUsername').value = user.username;
+      document.getElementById('editContact').value = user.contact;
 
+      // Update Avatar/Profile Images across Settings, Profile & Invite Pages
       if (user.profilePic) {
         const settingsImg = document.getElementById('settingsAvatarImg');
         const settingsIcon = document.getElementById('settingsAvatarIcon');
@@ -1580,11 +2191,11 @@
         }
       }
 
-      if (user.username) {
-        renderInvitedUsers(user.username);
-      }
+      // Sync Invited Users list dynamically on Invite Page
+      renderInvitedUsers(user.username);
     }
 
+    // Render registered referrals for the active user
     function renderInvitedUsers(currentUsername) {
       const container = document.getElementById('invitedUsersList');
       if (!container) return;
@@ -1609,7 +2220,8 @@
       }
     }
 
-    async function handleCreateAccount(event) {
+    // SIGN UP ACTION
+    function handleCreateAccount(event) {
       event.preventDefault();
 
       const firstName = document.getElementById('firstName').value.trim();
@@ -1625,84 +2237,94 @@
         return;
       }
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ firstName, secondName, contact, password, referral, promoCode })
-        });
-        const data = await response.json();
+      const allUsers = getAllUsers();
 
-        if (!response.ok) {
-          alert(data.message || 'Error during registration');
-          return;
-        }
+      // Check duplicate Name (Case-insensitive full name matching)
+      const fullNameInput = `${firstName} ${secondName}`.toLowerCase();
+      const nameExists = allUsers.some(u => `${u.firstName} ${u.secondName}`.toLowerCase() === fullNameInput);
 
-        if (data.token) localStorage.setItem('ghostJwtToken', data.token);
-        
-        const newUser = data.user || {
-          firstName,
-          secondName,
-          contact,
-          username: `@${firstName.toLowerCase()}${Math.floor(Math.random() * 1000)}`,
-          registeredAt: new Date().toISOString()
-        };
+      if (nameExists) {
+        alert(`An account with the name "${firstName} ${secondName}" already exists. Please use a different name.`);
+        return;
+      }
 
-        setUserData(newUser);
-        
-        const allUsers = getAllUsers();
-        allUsers.push(newUser);
-        saveAllUsers(allUsers);
+      // Check duplicate Email / Contact
+      const contactExists = allUsers.some(u => u.contact.toLowerCase() === contact.toLowerCase());
 
+      if (contactExists) {
+        alert(`An account with the email/phone "${contact}" has already been opened. Account creation declined.`);
+        return;
+      }
+
+      const generatedUsername = `@${firstName}${secondName}`.replace(/\s+/g, '');
+
+      let promoExpiry = null;
+      if (promoCode === PROMO_CODE_REQUIRED) {
+        // 24 hours free premium access via valid promo code ghost5551346
+        const now = new Date();
+        now.setHours(now.getHours() + 24);
+        promoExpiry = now.toISOString();
+      }
+
+      const newUserData = {
+        firstName: firstName,
+        secondName: secondName,
+        username: generatedUsername,
+        contact: contact,
+        password: password,
+        profilePic: '',
+        referredBy: referral,
+        promoCode: promoCode,
+        registeredAt: new Date().toISOString(),
+        promoExpiry: promoExpiry,
+        premiumExpiry: null,
+        unlimitedAccess: false
+      };
+
+      allUsers.push(newUserData);
+      saveAllUsers(allUsers);
+
+      // Save user to active session
+      setUserData(newUserData);
+
+      if (promoExpiry) {
+        alert('Account created successfully! Promo code applied: You have 24 hours of free access to premium links.');
+      } else {
         alert('Account created successfully!');
-        showPage('homeView');
-      } catch (err) {
-        console.error('Registration network error:', err);
-        alert('Network error. Failed to create account.');
       }
+
+      showPage('homeView');
     }
 
-    async function handleLogin(event) {
+    // LOGIN ACTION
+    function handleLogin(event) {
       event.preventDefault();
-      const contact = document.getElementById('loginUsername').value.trim();
-      const password = document.getElementById('loginPassword').value;
+      const inputContact = document.getElementById('loginUsername').value.trim();
+      const inputPass = document.getElementById('loginPassword').value;
 
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contact, password })
-        });
-        const data = await response.json();
+      const allUsers = getAllUsers();
+      const foundUser = allUsers.find(u => u.contact.toLowerCase() === inputContact.toLowerCase());
 
-        if (!response.ok) {
-          alert(data.message || 'Invalid credentials');
-          return;
-        }
+      if (!foundUser) {
+        alert('No account found! Please sign up first.');
+        showPage('signupView');
+        return;
+      }
 
-        if (data.token) localStorage.setItem('ghostJwtToken', data.token);
-        
-        const loggedUser = data.user || {
-          firstName: contact.split('@')[0],
-          secondName: '',
-          contact: contact,
-          username: `@${contact.split('@')[0]}`
-        };
-
-        setUserData(loggedUser);
+      if (inputPass === foundUser.password) {
+        setUserData(foundUser);
         showPage('homeView');
-      } catch (err) {
-        console.error('Login network error:', err);
-        alert('Server unreachable. Please check backend.');
+      } else {
+        alert('Invalid email/phone number or password!');
       }
     }
 
+    // LOGOUT ACTION
     function handleLogout() {
-      localStorage.removeItem('ghostJwtToken');
-      localStorage.removeItem('ghostUser');
       showPage('loginView');
     }
 
+    // Image Upload (Profile Settings)
     function triggerFileInput() {
       document.getElementById('fileInputProfile').click();
     }
@@ -1720,8 +2342,10 @@
       }
     }
 
+    // SAVE PROFILE CHANGES ACTION
     function saveProfile(event) {
       event.preventDefault();
+
       const user = getUserData();
       if (!user) return;
 
@@ -1745,6 +2369,7 @@
       showPage('settingsView');
     }
 
+    // Universal Link Copier for Standard Links
     function copyLink(elementId, button) {
       const linkElement = document.getElementById(elementId);
       const textToCopy = linkElement.href || linkElement.innerText;
@@ -1752,6 +2377,7 @@
       navigator.clipboard.writeText(textToCopy).then(() => {
         button.classList.add('copied');
         button.innerHTML = `<i class="fa-solid fa-check"></i> Copied`;
+
         showToast('Link copied to clipboard!');
 
         setTimeout(() => {
@@ -1763,20 +2389,23 @@
       });
     }
 
-    function selectPlan(plan, priceText, rawPrice) {
-      selectedPlanCode = plan;
+    // Pass Plan details to Payment Page and record selection timestamp
+    function selectPlan(plan, priceText, rawPrice, daysGranted) {
       currentSelectedPrice = rawPrice;
-      paymentSelectedTime = new Date();
+      selectedPlanDays = daysGranted;
+      paymentSelectedTime = new Date(); // Start 10-minute timeout clock
 
       document.getElementById('selectedPlanText').textContent = plan.toUpperCase();
       document.getElementById('selectedPriceText').innerHTML = '&#8358;' + priceText;
       
+      // Clear file inputs
       document.getElementById('receiptFileInput').value = '';
       document.getElementById('fileName').textContent = '';
 
       showPage('paymentView');
     }
 
+    // Show Payment Receipt File Name
     function showFileName() {
       const fileInput = document.getElementById('receiptFileInput');
       const fileNameDiv = document.getElementById('fileName');
@@ -1785,6 +2414,7 @@
       }
     }
 
+    // OCR Verification & Timed Payment Processing Logic
     async function processPayment() {
       const fileInput = document.getElementById('receiptFileInput');
       const overlay = document.getElementById('statusOverlay');
@@ -1805,6 +2435,7 @@
         return;
       }
 
+      // 10-Minute Timeout Validation Check
       if (paymentSelectedTime) {
         const timeDiffMinutes = (new Date() - paymentSelectedTime) / (1000 * 60);
         if (timeDiffMinutes > 10) {
@@ -1835,29 +2466,32 @@
         const result = await Tesseract.recognize(file, 'eng');
         const text = result.data.text.toLowerCase().replace(/[\,\s\.\#]/g, '');
 
+        // Account Number and Holder Name Validation
         const hasAccount = text.includes('8123456789');
         const hasName = text.includes('wellington') || text.includes('odinaka') || text.includes('ogbonnat');
+
+        // Payment Amount Validation
         const priceString = currentSelectedPrice.toString();
         const hasAmount = text.includes(priceString);
 
         if (hasAccount && hasName && hasAmount) {
-          const jwtToken = localStorage.getItem('ghostJwtToken');
-          
-          if (jwtToken) {
-            await fetch(`${API_BASE_URL}/api/subscription/upgrade`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + jwtToken
-              },
-              body: JSON.stringify({ plan: selectedPlanCode })
-            });
-          }
-
           loader.style.display = 'none';
           successCheck.style.display = 'block';
           statusTitle.textContent = "Payment Confirmed!";
-          statusSub.textContent = "Receipt verified successfully! Redirecting...";
+          statusSub.textContent = "Receipt verified successfully! Access unlocked.";
+
+          // Update user subscription state
+          const user = getUserData();
+          if (user) {
+            if (selectedPlanDays === 'unlimited') {
+              user.unlimitedAccess = true;
+            } else {
+              const now = new Date();
+              now.setDate(now.getDate() + parseInt(selectedPlanDays));
+              user.premiumExpiry = now.toISOString();
+            }
+            setUserData(user);
+          }
 
           setTimeout(() => {
             overlay.classList.remove('active');
@@ -1892,6 +2526,7 @@
       }
     }
 
+    // Share Button Logic for Invite Page
     function initShareButton() {
       const shareBtn = document.getElementById('shareBtn');
       const inviteUrlInput = document.getElementById('inviteUrl');
@@ -1933,6 +2568,7 @@
       }, 2500);
     }
 
+    // Draggable Floating Help Button Logic
     function initDraggableHelp() {
       const wrapper = document.getElementById('draggableHelp');
       const btn = document.getElementById('helpDragBtn');
@@ -1988,5 +2624,6 @@
       });
     }
   </script>
+
 </body>
 </html>
