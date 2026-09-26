@@ -1432,8 +1432,10 @@
   <div class="toast" id="toast">Link copied to clipboard!</div>
 
   <script>
-    // OPTIONAL: Update API_BASE_URL once backend service (Render/Vercel) is live
-    const API_BASE_URL = ''; 
+    // Dynamically detects if hosted on Vercel or locally, pointing directly to your deployed Vercel backend
+    const API_BASE_URL = window.location.origin.includes("ghost-premium-logs-cao2.vercel.app") 
+      ? "" 
+      : "https://ghost-premium-logs-cao2.vercel.app";
 
     let currentSelectedPrice = 5000;
     let selectedPlanCode = '1month';
@@ -1523,25 +1525,25 @@
       const user = getUserData();
       if (!user) return;
 
-      document.getElementById('displayProfileName').innerText = `${user.firstName} ${user.secondName}`;
-      document.getElementById('displayProfileUsername').innerText = user.username.startsWith('@') ? user.username : `@${user.username}`;
+      document.getElementById('displayProfileName').innerText = `${user.firstName || ''} ${user.secondName || ''}`;
+      document.getElementById('displayProfileUsername').innerText = user.username ? (user.username.startsWith('@') ? user.username : `@${user.username}`) : '@user';
 
       const inviteNameElem = document.getElementById('inviteProfileName');
       if (inviteNameElem) {
-        inviteNameElem.innerText = `${user.firstName} ${user.secondName}`;
+        inviteNameElem.innerText = `${user.firstName || ''} ${user.secondName || ''}`;
       }
 
       const inviteUrlElem = document.getElementById('inviteUrl');
-      if (inviteUrlElem) {
+      if (inviteUrlElem && user.username) {
         const cleanUsername = user.username.replace(/^@/, '');
         const officialUrl = window.location.origin + window.location.pathname;
         inviteUrlElem.value = `${officialUrl}?ref=${cleanUsername}`;
       }
 
-      document.getElementById('editFirstName').value = user.firstName;
-      document.getElementById('editSecondName').value = user.secondName;
-      document.getElementById('editUsername').value = user.username;
-      document.getElementById('editContact').value = user.contact;
+      if (document.getElementById('editFirstName')) document.getElementById('editFirstName').value = user.firstName || '';
+      if (document.getElementById('editSecondName')) document.getElementById('editSecondName').value = user.secondName || '';
+      if (document.getElementById('editUsername')) document.getElementById('editUsername').value = user.username || '';
+      if (document.getElementById('editContact')) document.getElementById('editContact').value = user.contact || '';
 
       if (user.profilePic) {
         const settingsImg = document.getElementById('settingsAvatarImg');
@@ -1578,7 +1580,9 @@
         }
       }
 
-      renderInvitedUsers(user.username);
+      if (user.username) {
+        renderInvitedUsers(user.username);
+      }
     }
 
     function renderInvitedUsers(currentUsername) {
@@ -1634,11 +1638,20 @@
           return;
         }
 
-        localStorage.setItem('ghostJwtToken', data.token);
-        setUserData(data.user);
+        if (data.token) localStorage.setItem('ghostJwtToken', data.token);
+        
+        const newUser = data.user || {
+          firstName,
+          secondName,
+          contact,
+          username: `@${firstName.toLowerCase()}${Math.floor(Math.random() * 1000)}`,
+          registeredAt: new Date().toISOString()
+        };
+
+        setUserData(newUser);
         
         const allUsers = getAllUsers();
-        allUsers.push(data.user);
+        allUsers.push(newUser);
         saveAllUsers(allUsers);
 
         alert('Account created successfully!');
@@ -1667,8 +1680,16 @@
           return;
         }
 
-        localStorage.setItem('ghostJwtToken', data.token);
-        setUserData(data.user);
+        if (data.token) localStorage.setItem('ghostJwtToken', data.token);
+        
+        const loggedUser = data.user || {
+          firstName: contact.split('@')[0],
+          secondName: '',
+          contact: contact,
+          username: `@${contact.split('@')[0]}`
+        };
+
+        setUserData(loggedUser);
         showPage('homeView');
       } catch (err) {
         console.error('Login network error:', err);
