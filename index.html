@@ -1190,49 +1190,6 @@
     .bank-card p:last-child { margin-bottom: 0; }
     .bank-card strong { color: var(--text-main); }
 
-    /* MANUAL PROMO CODE / DISCOUNT BOX STYLES */
-    .promo-input-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .promo-input-card label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .promo-input-group {
-      display: flex;
-      gap: 8px;
-    }
-
-    .promo-input-group .input-field {
-      flex: 1;
-    }
-
-    .btn-apply-promo {
-      background: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-apply-promo:hover {
-      background: var(--primary-hover);
-    }
-
     .file-upload-box {
       border: 2px dashed var(--accent-color);
       background: rgba(99, 102, 241, 0.05);
@@ -1829,15 +1786,6 @@
         <p><strong>Bank:</strong> OPay / PalmPay</p>
         <p><strong>Name:</strong> Wellington Odinaka Ogbonna</p>
         <p><strong>Account Number:</strong> 7055347479</p>
-      </div>
-
-      <!-- NEW PROMO / REFERRAL ENTRY BOX DURING CHECKOUT -->
-      <div class="promo-input-card">
-        <label for="checkoutPromoInput">Have a promo or referral code?</label>
-        <div class="promo-input-group">
-          <input type="text" id="checkoutPromoInput" class="input-field" placeholder="Enter promo code">
-          <button class="btn-apply-promo" onclick="applyCheckoutPromo()">Apply</button>
-        </div>
       </div>
 
       <div class="file-upload-box">
@@ -2514,30 +2462,11 @@
 
       document.getElementById('selectedPlanText').textContent = plan.toUpperCase();
       document.getElementById('selectedPriceText').innerHTML = '&#8358;' + priceText;
-      
-      const promoInput = document.getElementById('checkoutPromoInput');
-      if (promoInput) promoInput.value = '';
 
       document.getElementById('receiptFileInput').value = '';
       document.getElementById('fileName').textContent = '';
 
       showPage('paymentView');
-    }
-
-    function applyCheckoutPromo() {
-      const code = document.getElementById('checkoutPromoInput').value.trim();
-      if (!code) {
-        alert('Please enter a promo code.');
-        return;
-      }
-
-      if (code === PROMO_CODE_REQUIRED) {
-        currentSelectedPrice = Math.floor(currentSelectedPrice * 0.8);
-        document.getElementById('selectedPriceText').innerHTML = '&#8358;' + currentSelectedPrice.toLocaleString() + ' <span style="font-size:0.75rem; color: var(--green-online);">(20% Discount Applied)</span>';
-        alert('Promo code applied successfully! 20% discount granted.');
-      } else {
-        alert('Invalid promo code.');
-      }
     }
 
     function showFileName() {
