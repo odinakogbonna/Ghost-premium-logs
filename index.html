@@ -1574,8 +1574,8 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             FB
           </div>
-          <a href="https://facebook1-brown.vercel.app/" target="_blank" class="premium-url" id="prem-link-fb" onclick="handlePremiumLinkClick(event)">https://facebook1-brown.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-fb', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://facebook1-brown.vercel.app/" target="_blank" class="premium-url" id="prem-link-fb" onclick="handlePremiumLinkClick(event, 'fb')">https://facebook1-brown.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-fb', this, 'fb')"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
 
         <div class="premium-link-item">
@@ -1584,8 +1584,18 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             IG
           </div>
-          <a href="https://instagram-1-rho.vercel.app/" target="_blank" class="premium-url" id="prem-link-ig" onclick="handlePremiumLinkClick(event)">https://instagram-1-rho.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-ig', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://instagram-1-rho.vercel.app/" target="_blank" class="premium-url" id="prem-link-ig" onclick="handlePremiumLinkClick(event, 'ig')">https://instagram-1-rho.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-ig', this, 'ig')"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-brands fa-tiktok" style="color: #ffffff;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            TikTok
+          </div>
+          <a href="https://tiktok-pro-ivory.vercel.app/" target="_blank" class="premium-url" id="prem-link-tiktok" onclick="handlePremiumLinkClick(event, 'tiktok')">https://tiktok-pro-ivory.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-tiktok', this, 'tiktok')"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
 
         <div class="premium-link-item">
@@ -1594,8 +1604,28 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             OPay
           </div>
-          <a href="https://opay1.vercel.app/" target="_blank" class="premium-url" id="prem-link-opay" onclick="handlePremiumLinkClick(event)">https://opay1.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-opay', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://opay1.vercel.app/" target="_blank" class="premium-url" id="prem-link-opay" onclick="handlePremiumLinkClick(event, 'opay')">https://opay1.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-opay', this, 'opay')"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-solid fa-wallet" style="color: #22c55e;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            PalmPay
+          </div>
+          <a href="https://palmpay-three-pi.vercel.app/" target="_blank" class="premium-url" id="prem-link-palmpay" onclick="handlePremiumLinkClick(event, 'palmpay')">https://palmpay-three-pi.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-palmpay', this, 'palmpay')"><i class="fa-regular fa-copy"></i> Copy</button>
+        </div>
+
+        <div class="premium-link-item">
+          <div class="premium-label">
+            <i class="fa-solid fa-trophy" style="color: #e51d25;"></i>
+            <i class="fa-solid fa-lock premium-lock-icon"></i>
+            SportyBet
+          </div>
+          <a href="https://sportybet-pro.vercel.app/" target="_blank" class="premium-url" id="prem-link-sportybet" onclick="handlePremiumLinkClick(event, 'sportybet')">https://sportybet-pro.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-sportybet', this, 'sportybet')"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
 
         <div class="premium-link-item">
@@ -1604,8 +1634,8 @@
             <i class="fa-solid fa-lock premium-lock-icon"></i>
             famsUpTasks
           </div>
-          <a href="https://fams-up-tasks.vercel.app/" target="_blank" class="premium-url" id="prem-link-famsuptasks" onclick="handlePremiumLinkClick(event)">https://fams-up-tasks.vercel.app/</a>
-          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-famsuptasks', this)"><i class="fa-regular fa-copy"></i> Copy</button>
+          <a href="https://fams-up-tasks.vercel.app/" target="_blank" class="premium-url" id="prem-link-famsuptasks" onclick="handlePremiumLinkClick(event, 'famsuptasks')">https://fams-up-tasks.vercel.app/</a>
+          <button class="copy-btn-premium" onclick="handlePremiumCopy('prem-link-famsuptasks', this, 'famsuptasks')"><i class="fa-regular fa-copy"></i> Copy</button>
         </div>
       </div>
 
@@ -2110,21 +2140,21 @@
       return "just now";
     }
 
-    // Premium Verification Check
-    function isPremiumActive(user) {
+    // Premium Verification Check with Specific Service Type Logic
+    function isPremiumActive(user, itemType = 'general') {
       if (!user) return false;
+      
+      // Paid Unlimited Access grants full access to everything
       if (user.unlimitedAccess) return true;
 
       const now = new Date().getTime();
 
+      // Paid Subscription grants full access to everything
       if (user.premiumExpiry && new Date(user.premiumExpiry).getTime() > now) {
         return true;
       }
 
-      if (user.promoExpiry && new Date(user.promoExpiry).getTime() > now) {
-        return true;
-      }
-
+      // Referral Tier Access grants full access to everything
       const allUsers = getAllUsers();
       const cleanCurrent = user.username.toLowerCase().replace(/^@/, '');
       const referrals = allUsers.filter(u => u.referredBy && u.referredBy.toLowerCase().replace(/^@/, '') === cleanCurrent);
@@ -2146,22 +2176,41 @@
         }
       }
 
+      // Promo Code Expiry Check (ONLY grants access to Facebook, Instagram, and TikTok)
+      if (user.promoExpiry && new Date(user.promoExpiry).getTime() > now) {
+        const allowedPromoItems = ['fb', 'ig', 'tiktok'];
+        if (allowedPromoItems.includes(itemType)) {
+          return true;
+        }
+      }
+
       return false;
     }
 
-    function handlePremiumLinkClick(event) {
+    function handlePremiumLinkClick(event, itemType = 'general') {
       const user = getUserData();
-      if (!isPremiumActive(user)) {
+      if (!isPremiumActive(user, itemType)) {
         event.preventDefault();
-        alert('Access to Premium Links is restricted. Redirecting to verification and subscription page...');
+        
+        if (user && user.promoExpiry && new Date(user.promoExpiry).getTime() > new Date().getTime()) {
+          alert('Promo Code access is restricted to Facebook, Instagram, and TikTok only. Subscribe to Premium to unlock SportyBet, OPay, and PalmPay!');
+        } else {
+          alert('Access to Premium Links is restricted. Redirecting to verification and subscription page...');
+        }
+        
         showPage('premiumView');
       }
     }
 
-    function handlePremiumCopy(elementId, button) {
+    function handlePremiumCopy(elementId, button, itemType = 'general') {
       const user = getUserData();
-      if (!isPremiumActive(user)) {
-        alert('Access to Copy Premium Links is restricted. Redirecting to verification and subscription page...');
+      if (!isPremiumActive(user, itemType)) {
+        if (user && user.promoExpiry && new Date(user.promoExpiry).getTime() > new Date().getTime()) {
+          alert('Promo Code access is restricted to Facebook, Instagram, and TikTok only. Subscribe to Premium to unlock SportyBet, OPay, and PalmPay!');
+        } else {
+          alert('Access to Copy Premium Links is restricted. Redirecting to verification and subscription page...');
+        }
+        
         showPage('premiumView');
         return;
       }
@@ -2359,7 +2408,7 @@
       setUserData(newUserData);
 
       if (promoExpiry) {
-        alert('Account created successfully! Promo code applied: You have 24 hours of free access to premium links.');
+        alert('Account created successfully! Promo code applied: You have 24 hours of free access to Facebook, Instagram, and TikTok premium links.');
       } else {
         alert('Account created successfully!');
       }
